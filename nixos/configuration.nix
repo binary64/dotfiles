@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
 
   # Bootloader.
@@ -153,6 +153,10 @@ wl-clipboard
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
+  [org.gnome.desktop.wm.preferences]
+  num-workspaces=1
+'';
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 ];
