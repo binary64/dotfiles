@@ -15,6 +15,8 @@
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -94,8 +96,6 @@
   users.users.user = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "docker" ];
-    packages = with pkgs; [
-    ];
   };
 
   # Enable automatic login for the user.
@@ -110,7 +110,7 @@
   nixpkgs.config.allowUnfree = true;
 
 
-  environment.variables.EDITOR = "nvim";
+  #environment.variables.EDITOR = "nvim";
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
