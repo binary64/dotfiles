@@ -56,6 +56,12 @@
   services.xserver = {
     layout = "gb";
     xkbVariant = "";
+    desktopManager.gnome = {
+      enable = true;
+      extensions = with pkgs.gnomeExtensions; [
+        no-overview
+      ];
+    };
   };
 
   # Configure console keymap
