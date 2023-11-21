@@ -99,8 +99,8 @@
   };
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
-  services.xserver.displayManager.autoLogin.user = "user";
+  #services.xserver.displayManager.autoLogin.enable = true;
+  #services.xserver.displayManager.autoLogin.user = "user";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
@@ -159,10 +159,10 @@ wl-clipboard
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
-  [org.gnome.desktop.wm.preferences]
-  num-workspaces=1
-'';
+#  services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
+#  [org.gnome.desktop.wm.preferences]
+#  num-workspaces=1
+#'';
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 ];
