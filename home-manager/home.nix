@@ -7,6 +7,7 @@
 
     tmux = {
       enable = true;
+      baseIndex = 1;
     };
 
     wezterm.enable = true;
