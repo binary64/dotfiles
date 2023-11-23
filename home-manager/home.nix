@@ -1,7 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
-
   programs = {
     home-manager.enable = true;
     fish.enable = true;
@@ -16,11 +15,11 @@
 
     bash.enable = true;
 
-    zellij = {
-      enable = true;
-      enableBashIntegration = true;
-      enableFishIntegration = true;
-    };
+    #zellij = {
+    #  enable = true;
+    #  enableBashIntegration = true;
+    #  enableFishIntegration = true;
+    #};
 
     git = {
       enable = true;
@@ -56,7 +55,8 @@
     hello
 go
 k3d
-
+nodejs
+inputs.neovim-flake.packages.${pkgs.system}.nvim
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -98,8 +98,8 @@ k3d
   #
   #  /etc/profiles/per-user/user/etc/profile.d/hm-session-vars.sh
   #
-  home.sessionVariables = {
-    EDITOR = "nvim";
-  };
+  #home.sessionVariables = {
+  #  EDITOR = "nvim";
+  #};
 
 }

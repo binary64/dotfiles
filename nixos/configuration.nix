@@ -8,12 +8,37 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
+
+    {
+      fonts = {
+        fontconfig.enable = true;
+        fontDir.enable = true;
+        enableGhostscriptFonts = false;
+    
+        fonts = with pkgs; [
+          pkgs.inconsolata
+          pkgs.dejavu_fonts
+          pkgs.source-code-pro
+          pkgs.ubuntu_font_family
+          pkgs.unifont
+          pkgs.powerline-fonts
+          pkgs.terminus_font
+        ];
+      };
+    }
+
     ];
 
   # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/sda";
   boot.loader.grub.useOSProber = true;
+
+      hardware.bluetooth.enable = true;
+
+  # android
+  services.udev.packages = [ pkgs.android-udev-rules ];
+  programs.adb.enable = true;
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -95,8 +120,22 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.user = {
     isNormalUser = true;
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "adbuser" "input" "video" ];
   };
+
+      documentation = {
+        man.enable = true;
+        dev.enable = true;
+      };
+
+  # Security stuff
+  services.fwupd.enable = true;
+      programs.gnupg.agent = {
+        enable = true;
+        enableSSHSupport = true;
+        pinentryFlavor = "qt";
+      };
+
 
   # Enable automatic login for the user.
   #services.xserver.displayManager.autoLogin.enable = true;
@@ -120,6 +159,25 @@ git
 curl
 jq
 wl-clipboard
+htop
+psmisc
+zip
+unzip
+bind
+file
+which
+ripgrep
+#xclip
+patchelf
+python3
+fd
+gcc
+
+# RTFM
+man-pages
+stdman
+posix_man_pages
+stdmanpages
 
 # for neovim
         #rnix-lsp
