@@ -121,6 +121,7 @@
   users.users.user = {
     isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" "docker" "adbuser" "input" "video" ];
+    shell = pkgs.fish;
   };
 
       documentation = {
@@ -201,7 +202,7 @@ stdmanpages
   ];
 
   programs = {
-#    fish.enable = true;
+    fish.enable = true;
 #    direnv.enable = true;
   };
   # Some programs need SUID wrappers, can be configured further or are

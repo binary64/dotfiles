@@ -3,7 +3,6 @@
 {
   programs = {
     home-manager.enable = true;
-    fish.enable = true;
 
     tmux = {
       enable = true;
@@ -36,6 +35,17 @@
       };
       ignores = [ "*.swp" "*.log" "*.pdf" "*.aux" "*.out" ];
     };
+  };
+
+  programs.fish = {
+    #enable = true;  # Ensure Fish is enabled
+
+    shellInit = ''
+      # Start Tmux if it's not already running
+      if not set -q TMUX; and set -q PS1; and command -v tmux > /dev/null
+          exec tmux
+      end
+    '';
   };
 
   # Home Manager needs a bit of information about you and the paths it should
@@ -103,8 +113,9 @@ inputs.neovim-flake.packages.${pkgs.system}.nvim
   #
   #  /etc/profiles/per-user/user/etc/profile.d/hm-session-vars.sh
   #
-  #home.sessionVariables = {
-  #  EDITOR = "nvim";
-  #};
+  home.sessionVariables = {
+    #EDITOR = "nvim";
+    SHELL = "${pkgs.fish}";
+  };
 
 }
