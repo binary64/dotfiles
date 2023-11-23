@@ -7,6 +7,13 @@
     tmux = {
       enable = true;
       baseIndex = 1;
+      shortcut = "a";
+      terminal = "tmux-direct";
+      plugins = [ pkgs.tmuxPlugins.nord ];
+      #extraConfig = ''
+      #  set -g default-terminal "tmux-256color"
+      #  set -ag terminal-overrides ",xterm-256color:RGB"
+      #'';
     };
 
     wezterm.enable = true;
@@ -37,16 +44,11 @@
     };
   };
 
-  programs.fish = {
-    #enable = true;  # Ensure Fish is enabled
-
-    shellInit = ''
-      # Start Tmux if it's not already running
-      if not set -q TMUX; and set -q PS1; and command -v tmux > /dev/null
-          exec tmux
-      end
-    '';
-  };
+#  programs.fish = {
+#    enable = true;  # Ensure Fish is enabled
+#    shellInit = ''
+#    '';
+#  };
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
