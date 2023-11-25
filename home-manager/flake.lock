@@ -45,17 +45,14 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1700301879,
-        "narHash": "sha256-yvTATWBD+eI6/vatEFZefWLQsIc81g181JHSvFWsJqM=",
-        "owner": "mrcjkb",
-        "repo": "kickstart-nix.nvim",
-        "rev": "de165460cc90cfb9aeceec19ab94f99f6ce38f29",
-        "type": "github"
+        "lastModified": 1,
+        "narHash": "sha256-yyuviVbZ5oYMytRmShABDFblhRElyslpc1GCOnfyuyo=",
+        "path": "/nix/store/85m78hlppn7k9w1p0b4l4x05h28zscsl-source/home-manager/kickstart-nix.nvim",
+        "type": "path"
       },
       "original": {
-        "owner": "mrcjkb",
-        "repo": "kickstart-nix.nvim",
-        "type": "github"
+        "path": "/nix/store/85m78hlppn7k9w1p0b4l4x05h28zscsl-source/home-manager/kickstart-nix.nvim",
+        "type": "path"
       }
     },
     "nixpkgs": {

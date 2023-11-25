@@ -70,10 +70,22 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     hello
+    htop
+    git
+    curl
+    wget
+    ripgrep
+
+
 go
+rustup
 k3d
 nodejs
 inputs.neovim-flake.packages.${pkgs.system}.nvim
+nodePackages.degit
+nodePackages.pnpm
+git-standup
+gitui
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the

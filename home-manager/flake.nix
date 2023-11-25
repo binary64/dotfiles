@@ -7,10 +7,10 @@
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-flake.url = "github:mrcjkb/kickstart-nix.nvim";
+    neovim-flake.url = "./kickstart-nix.nvim";
   };
 
-  outputs = { self, nixpkgs, home-manager, neovim-flake, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
