@@ -10,10 +10,10 @@
       shortcut = "a";
       terminal = "tmux-direct";
       plugins = [ pkgs.tmuxPlugins.nord ];
-      #extraConfig = ''
-      #  set -g default-terminal "tmux-256color"
-      #  set -ag terminal-overrides ",xterm-256color:RGB"
-      #'';
+      extraConfig = ''
+        set -g default-terminal "tmux-256color"
+        set -ag terminal-overrides ",xterm-256color:RGB"
+      '';
     };
 
     wezterm.enable = true;
@@ -41,6 +41,21 @@
           l = "log";
       };
       ignores = [ "*.swp" "*.log" "*.pdf" "*.aux" "*.out" ];
+    };
+
+    fish = {
+      enable = true;
+      shellInit = ''
+      function p
+        switch $argv[1]
+          case p
+            tmux new-session -A -n p -c ~/Code/monorepo nvim .
+          # Add more cases as needed
+          case '*'
+            echo "Command not recognized"
+        end
+      end
+      '';
     };
   };
 

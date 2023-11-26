@@ -47,11 +47,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-yyuviVbZ5oYMytRmShABDFblhRElyslpc1GCOnfyuyo=",
-        "path": "/nix/store/85m78hlppn7k9w1p0b4l4x05h28zscsl-source/home-manager/kickstart-nix.nvim",
+        "path": "/nix/store/y18qg00xffrhg38z6rz3si4mvzxnq5n0-source/home-manager/kickstart-nix.nvim",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/85m78hlppn7k9w1p0b4l4x05h28zscsl-source/home-manager/kickstart-nix.nvim",
+        "path": "/nix/store/y18qg00xffrhg38z6rz3si4mvzxnq5n0-source/home-manager/kickstart-nix.nvim",
         "type": "path"
       }
     },
