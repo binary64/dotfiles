@@ -131,11 +131,11 @@
 
   # Security stuff
   services.fwupd.enable = true;
-      programs.gnupg.agent = {
-        enable = true;
-        enableSSHSupport = true;
-        pinentryFlavor = "qt";
-      };
+#      programs.gnupg.agent = {
+#        enable = true;
+#        enableSSHSupport = true;
+#        pinentryFlavor = "qt";
+#      };
 
 
   # Enable automatic login for the user.
@@ -176,9 +176,7 @@ gcc
 
 # RTFM
 man-pages
-stdman
 posix_man_pages
-stdmanpages
 
 # for neovim
         #rnix-lsp
