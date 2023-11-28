@@ -6,6 +6,8 @@ Feel free to roast, install, or skip.
 
 ```bash
 nix-shell --packages git --run "git clone git@github.com:binary64/dotfiles.git ~/dotfiles"
+cp /etc/nixos/hardware-configuration.nix ~/dotfiles/nixos/
+sudo ln -sf /home/user/dotfiles/nixos/ /etc/nixos
 cp /etc/nixos/configuration.nix ~/dotfiles/nixos/configuration.nix.backup
 sudo ln -sf "${HOME}/dotfiles/nixos/configuration.nix" "/etc/nixos/configuration.nix"
 sudo nix-channel --update
