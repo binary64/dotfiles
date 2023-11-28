@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   programs = {
@@ -114,7 +114,7 @@ bat
     # # configuration. For example, this adds a command 'my-hello' to your
     # # environment:
     (writeShellScriptBin "my-hello" ''
-      echo "Hello, ${config.home.username}!"
+      echo "Hello, ${home.username}!"
     '')
   ];
 
