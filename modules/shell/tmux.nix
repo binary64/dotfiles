@@ -20,6 +20,8 @@ in {
     #  rcFiles = [ "${configDir}/tmux/aliases.zsh" ];
     #};
 
+    #programs.zoxide.enable = true;
+
     home.configFile = {
       "tmux" = { source = "${configDir}/tmux"; recursive = true; };
       "tmux/extraInit" = {

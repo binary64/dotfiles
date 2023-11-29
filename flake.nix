@@ -22,6 +22,7 @@
 
       # Extras
       nixos-hardware.url = "github:nixos/nixos-hardware";
+      #<kickstart-nix.nvim>
     };
 
   outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, ... }:
