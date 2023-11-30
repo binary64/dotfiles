@@ -3,8 +3,6 @@
 {
   user.packages = with pkgs; [
     jq
-    lf
-    fzf
     ripgrep
     fd # find, in rust
     neofetch
@@ -25,5 +23,36 @@
     btop = {
       enable = true;
     };
+    bash = {
+      enable = true;
+    };
+    less = {
+      enable = true;
+    };
+	helix = {
+		enable = true;
+	};
+	htop = {
+		enable = true;
+	};
+	lf = {
+		enable = true;
+	};
+	fzf = {
+		enable = true;
+	};
+	neovim = {
+		enable = true;
+	};
+	tealdeer = {
+		enable = true;
+	};
+	ssh = {
+		enable = true;
+	};
+	zsh = {
+		enable = true;
+	};
+
   };
 }
