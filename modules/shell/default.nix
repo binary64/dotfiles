@@ -8,7 +8,10 @@
     neofetch
   ];
   home.programs = {
-    lazygit = {
+iotop = {
+  enable = true;
+};
+lazygit = {
       enable = true;
     };
     zoxide = {

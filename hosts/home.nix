@@ -13,9 +13,6 @@ with lib;
     neovim = {
       enable = true;
     };
-    iotop = {
-      enable = true;
-    };
     hyprland = {
       enable = true;
     };
