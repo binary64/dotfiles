@@ -8,7 +8,7 @@
     neofetch
 
   ];
-  user.programs = {
+  programs = {
     iotop = {
       enable = true;
     };
