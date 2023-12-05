@@ -6,12 +6,15 @@
     ripgrep
     fd # find, in rust
     neofetch
+
   ];
+  user.programs = {
+    iotop = {
+      enable = true;
+    };
+  };
   home.programs = {
-iotop = {
-  enable = true;
-};
-lazygit = {
+    lazygit = {
       enable = true;
     };
     zoxide = {
