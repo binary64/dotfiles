@@ -1,8 +1,8 @@
-{ inputs, lib, ... }:
+{ lib, ... }:
 
 with lib;
 {
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
+  #imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   time.timeZone = mkDefault "Europe/London";
   i18n.defaultLocale = mkDefault "en_GB.UTF-8";
