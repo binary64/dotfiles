@@ -6,14 +6,20 @@
     ripgrep
     fd # find, in rust
     neofetch
-
   ];
   programs = {
     iotop = {
       enable = true;
     };
+    fish = {
+      enable = true;
+    };
   };
+  users.defaultUserShell = pkgs.fish;
   home.programs = {
+    fish = {
+      enable = true;
+    };
     lazygit = {
       enable = true;
     };
