@@ -13,9 +13,6 @@
       #gnupg.enable  = true;
       tmux.enable   = true;
     };
-    services = {
-      docker.enable = true;
-    };
   };
 
   ## Local config

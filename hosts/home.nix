@@ -13,12 +13,16 @@ with lib;
     neovim = {
       enable = true;
     };
-    hyprland = {
-      enable = true;
-    };
+    #hyprland = {
+    #  enable = true;
+    #};
   };
-  environment.systemPackages = with pkgs; [
-    nodePackages.pnpm
-  ];
+  #environment.systemPackages = with pkgs; [
+  #  nodePackages.pnpm
+  #];
 
-}
+    programs.steam.enable = true;
+
+    # better for steam proton games
+    systemd.extraConfig = "DefaultLimitNOFILE=1048576";
+  }

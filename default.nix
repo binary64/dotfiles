@@ -66,7 +66,6 @@ with lib.my;
     };
   };
 
-  virtualisation.docker.enable = true;
   virtualisation.vmware.guest.enable = true;
   services.openssh.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 ];

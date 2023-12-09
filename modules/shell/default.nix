@@ -17,7 +17,22 @@
   };
   users.defaultUserShell = pkgs.fish;
   home.programs = {
+    starship = {
+      enable = true;
+    };
+    direnv = {
+      enable = true;
+    };
     fish = {
+      enable = true;
+      shellAliases = {
+        g = "gitui";
+        gs = "git status";
+	lg = "lazygit";
+	gacp = "git add -A && git commit --no-verify && git push --no-verify";
+};
+    };
+    eza = {
       enable = true;
     };
     lazygit = {
@@ -66,5 +81,13 @@
 		enable = true;
 	};
 
+  };
+
+  virtualisation = {
+    podman = {
+      enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings = {dns_enabled = true;};
+    };
   };
 }
