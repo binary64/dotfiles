@@ -6,7 +6,12 @@
     ripgrep
     fd # find, in rust
     neofetch
-  ];
+podman-compose
+];
+  virtualisation.oci-containers.backend = "podman";
+  virtualisation.containers.registries = {
+    search = [ "docker.io" ];
+  };
   programs = {
     iotop = {
       enable = true;
@@ -30,6 +35,7 @@
         gs = "git status";
 	lg = "lazygit";
 	gacp = "git add -A && git commit --no-verify && git push --no-verify";
+gp = "git push --no-verify";
 };
     };
     eza = {
