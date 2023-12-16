@@ -15,8 +15,10 @@
       # Core dependencies.
       nixpkgs.url = "nixpkgs/nixos-unstable";             # primary nixpkgs
       nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";  # for packages on the edge
-      home-manager.url = "github:nix-community/home-manager";
-      home-manager.inputs.nixpkgs.follows = "nixpkgs";
+      home-manager = {
+        url = "github:nix-community/home-manager";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
       agenix.url = "github:ryantm/agenix";
       agenix.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -57,16 +59,6 @@
 
       packages."${system}" =
         mapModules ./packages (p: pkgs.callPackage p {});
-
-      homeConfigurations.user = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-
-        modules = [
-          hyprland.homeManagerModules.default
-          {wayland.windowManager.hyprland.enable = true;}
-          # ...
-        ];
-      };
 
       nixosModules =
         { dotfiles = import ./.; } // mapModulesRec ./modules import;
