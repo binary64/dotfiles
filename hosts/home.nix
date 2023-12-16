@@ -1,8 +1,8 @@
-{ lib, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
 
 with lib;
 {
-  #imports = [ inputs.home-manager.nixosModules.home-manager ];
+  #imports = [ ./hyprland.nix ];
 
   time.timeZone = mkDefault "Europe/London";
   i18n.defaultLocale = mkDefault "en_GB.UTF-8";

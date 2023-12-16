@@ -74,13 +74,13 @@ with lib.my;
         #modules = [
         #  hyprland.homeManagerModules.default
         #  {wayland.windowManager.hyprland.enable = true;}
-        #  # ...
         #];
         xdg = {
           configFile = mkAliasDefinitions options.home.configFile;
           dataFile   = mkAliasDefinitions options.home.dataFile;
         };
 	programs = mkAliasDefinitions options.home.programs;
+
       };
     };
 
