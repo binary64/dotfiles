@@ -13,10 +13,10 @@
   inputs = 
     {
       # Core dependencies.
-      nixpkgs.url = "nixpkgs/nixos-unstable";             # primary nixpkgs
-      nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";  # for packages on the edge
+      nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+      unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
       home-manager = {
-        url = "github:nix-community/home-manager";
+        url = "github:nix-community/home-manager/release-23.11";
         inputs.nixpkgs.follows = "nixpkgs";
       };
       agenix.url = "github:ryantm/agenix";
@@ -29,7 +29,7 @@
       hyprland.url = "github:hyprwm/Hyprland";
     };
 
-  outputs = inputs @ { self, nixpkgs, nixpkgs-unstable, hyprland, home-manager, ... }:
+  outputs = inputs @ { self, nixpkgs, unstable, hyprland, home-manager, ... }:
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
 
@@ -41,7 +41,7 @@
         overlays = extraOverlays ++ (lib.attrValues self.overlays);
       };
       pkgs  = mkPkgs nixpkgs [ self.overlay ];
-      pkgs' = mkPkgs nixpkgs-unstable [];
+      pkgs' = mkPkgs unstable [];
 
       lib = nixpkgs.lib.extend
         (self: super: { my = import ./lib { inherit pkgs inputs; lib = self; }; });

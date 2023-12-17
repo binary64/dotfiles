@@ -2,7 +2,7 @@
 
 with lib;
 {
-  #imports = [ ./hyprland.nix ];
+  #imports = [ ./tmux.nix ];
 
   time.timeZone = mkDefault "Europe/London";
   i18n.defaultLocale = mkDefault "en_GB.UTF-8";
