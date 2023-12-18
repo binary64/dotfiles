@@ -1,4 +1,3 @@
-
 { pkgs, ... }:
 
 {
@@ -12,12 +11,12 @@
       prefix = "C-a";
       #terminal = "screen-256color";
       plugins = with pkgs.tmuxPlugins; [
-        copycat
-        extrakto
-        fuzzback
+        #copycat
+        #extrakto
+        #fuzzback
         catppuccin #nord
-        prefix-highlight
-        tmux-fzf
+        #prefix-highlight
+        #tmux-fzf
         #pkgs.tmux-modal
         vim-tmux-navigator
       ];
