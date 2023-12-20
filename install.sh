@@ -56,9 +56,12 @@ partprobe "${DISK_PATH}"
 echo "Installing to ${DISK_PATH}"
 
 (
-	sgdisk -n 0:1M:+513M -t 0:EF00 "$DISK_PATH"
-	sgdisk -n 0:0:+24G -t 0:8200 "$DISK_PATH"
+	sgdisk -n 0:1M:+999M -t 0:EF00 "$DISK_PATH"
+	sgdisk -n 0:0:+12G -t 0:8200 "$DISK_PATH"
 	sgdisk -n 0:0:0 -t 0:EF00 "$DISK_PATH"
+	sgdisk -c 1:efiboot "$DISK_PATH"
+	sgdisk -c 2:swap "$DISK_PATH"
+	sgdisk -c 3:cryptroot "$DISK_PATH"
 ) || (
 	echo "Disk not empty! Aborting. If you are you sure you wish to nuke the disk, run sgdisk --zap-all \"$DISK_PATH\""
 	exit 4
@@ -68,17 +71,18 @@ echo "Partitioned disk."
 # wait for label to show up
 while [[ ! -e /dev/disk/by-partlabel/efiboot ]];
 do
-	sleep 2;
+	sleep 1;
 done
 # wait for label to show up
 while [[ ! -e /dev/disk/by-partlabel/cryptroot ]];
 do
-	sleep 2;
+	sleep 1;
 done
 echo "Labels found!"
+sleep 1
 
 ## format the EFI partition
-mkfs.vfat /dev/disk/by-partlabel/efiboot
+mkfs.vfat -F 32 -n boot /dev/disk/by-partlabel/efiboot
 echo "Formatted vFAT partition."
 
 # temporary keyfile, will be removed (8k, ridiculously large)
@@ -102,19 +106,6 @@ echo "Disk mounted."
 # remove the temporary keyfile
 cryptsetup luksRemoveKey /dev/disk/by-partlabel/cryptroot /tmp/keyfile
 rm -f /tmp/keyfile
-
-## the actual zpool create is below
-#
-# zpool create        \
-# -O atime=on         \ #
-# -O relatime=on      \ # only write access time (requires atime, see man zfs)
-# -O compression=lz4  \ # compress all the things! (man zfs)
-# -O snapdir=visible  \ # ever so sligthly easier snap management (man zfs)
-# -O xattr=sa         \ # selinux file permissions (man zfs)
-# -o ashift=12        \ # 4k blocks (man zpool)
-# -o altroot=/mnt     \ # temp mount during install (man zpool)
-# rpool               \ # new name of the pool
-# /dev/mapper/nixroot   # devices used in the pool (in my case one, so no mirror or raid)
 
 zpool create        \
 -O atime=on         \
