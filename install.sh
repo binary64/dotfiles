@@ -161,6 +161,8 @@ nixos-generate-config --root /mnt
 
 echo "Done!"
 
+exit 0
+
 sleep 2
 echo "Rebooting in 5 seconds..."
 sleep 1
