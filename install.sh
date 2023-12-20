@@ -65,26 +65,26 @@ echo "Installing to ${rootdisk}"
 # w:	     write changes and quit
 #         y: confirm write
 
-gdisk ${rootdisk} >/dev/null <<end_of_commands
-o
-y
-n
-1
-2048
-+300M
-ef00
-n
-2
-8300
-c
-1
-efiboot
-c
-2
-cryptroot
-w
-y
-end_of_commands
+{
+	echo o
+echo y
+echo n
+echo 1
+echo 2048
+echo +300M
+echo ef00
+echo n
+echo 2
+echo 8300
+echo c
+echo 1
+echo efiboot
+echo c
+echo 2
+echo cryptroot
+echo w
+echo y
+} | gdisk "${rootdisk}"
 echo "Partitioned disk."
 
 # check for the newly created partitions
