@@ -6,8 +6,11 @@ echo "Installing OS.."
 
 # you only need to set this to the disk to want to install to
 # IT WILL BE WIPED
-rootdisk="${1}";
-passphrase="${2}"
+echo "Specify disk (ex: /dev/sda) :"
+read rootdisk
+
+echo "Specify passphrase (ex: mysecret007) :"
+read passphrase
 
 # Probably no need to change anything below or
 # in the other scripts, there be dragons
