@@ -2,6 +2,8 @@
 
 set -e
 
+echo "Installing OS.."
+
 # you only need to set this to the disk to want to install to
 # IT WILL BE WIPED
 rootdisk="${1}";
@@ -26,6 +28,7 @@ fi
 export scriptlocation=$(dirname $(readlink -f $0))
 
 partprobe "${rootdisk}"
+echo "Installing to ${rootdisk}"
 
 # we will create a new GPT table
 #
@@ -82,7 +85,7 @@ cryptroot
 w
 y
 end_of_commands
-
+echo "Partitioned disk."
 
 # check for the newly created partitions
 # this sometimes gives unrelated errors
@@ -99,12 +102,15 @@ while [[ ! -e /dev/disk/by-partlabel/cryptroot ]];
 do
 	sleep 2;
 done
+echo "Label found!"
+
 # check if both labels exist
 ls /dev/disk/by-partlabel/efiboot   >/dev/null
 ls /dev/disk/by-partlabel/cryptroot >/dev/null
 
 ## format the EFI partition
 mkfs.vfat /dev/disk/by-partlabel/efiboot
+echo "Formatted vFAT partition."
 
 # temporary keyfile, will be removed (8k, ridiculously large)
 dd if=/dev/urandom of=/tmp/keyfile bs=1k count=8
@@ -115,29 +121,17 @@ dd if=/dev/urandom of=/tmp/keyfile bs=1k count=8
 echo "Creating the encrypted partition, follow the instructions and use a strong password!"
 # formats the partition with luks and adds the temporary keyfile.
 echo "YES" | cryptsetup luksFormat /dev/disk/by-partlabel/cryptroot --key-size 512 --hash sha512 --key-file /tmp/keyfile
+echo "Encryption setup."
 
-if [[ $use_passphrase != "no" ]];
-then
-	# sets the given passphrase or asks for one
-	if [[ "${passphrase}" != "NONE" ]];
-	then
-		echo "$passphrase" | cryptsetup luksAddKey /dev/disk/by-partlabel/cryptroot --key-file /tmp/keyfile
-	else
-		cryptsetup luksAddKey /dev/disk/by-partlabel/cryptroot --key-file /tmp/keyfile
-	fi
-	echo "added passphrase"
-fi
+echo "$passphrase" | cryptsetup luksAddKey /dev/disk/by-partlabel/cryptroot --key-file /tmp/keyfile
+echo "added passphrase"
 
-
-if [[ "${keyfile}" != "NONE" ]];
-then
-	cryptsetup luksAddKey /dev/disk/by-partlabel/cryptroot  -d /tmp/keyfile --new-keyfile-size="${keysize}" "${keyfile}"
-	echo "added keyfile"
-fi
-
+cryptsetup luksAddKey /dev/disk/by-partlabel/cryptroot  -d /tmp/keyfile --new-keyfile-size="${keysize}" "${keyfile}"
+echo "added keyfile"
 
 # mount the cryptdisk at /dev/mapper/nixroot
 cryptsetup luksOpen /dev/disk/by-partlabel/cryptroot nixroot -d /tmp/keyfile
+echo "Disk mounted."
 
 # remove the temporary keyfile
 cryptsetup luksRemoveKey /dev/disk/by-partlabel/cryptroot /tmp/keyfile
