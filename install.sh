@@ -203,29 +203,8 @@ zfs set com.sun:auto-snapshot=true rpool/home
 
 nixos-generate-config --root /mnt
 
-if [[ "$keyfile" != "NONE" ]];
-then 
-  # add lukskeyfile.nix
-  cp "${scriptlocation}/lukskeyfile.nix" /mnt/etc/nixos/
-
-  # replace `/path/to/device` with actual keyfile
-  echo "path to device"
-  blkdevice="$(basename "$(ls -l /dev/disk/by-partlabel/cryptroot | awk '{print $11}')")";
-  device="$(ls -l /dev/disk/by-partuuid/ | grep "$blkdevice" | awk '{print $9}')"
-  sed -i'' -e "s!/path/to/device!${device}!" /mnt/etc/nixos/lukskeyfile.nix;
-  
-  # replace `/path/to/keyfile` with actual keyfile
-  sed -i '' -e "s!/path/to/keyfile!${keyfile}!" /mnt/etc/nixos/lukskeyfile.nix;
-
-  # replace placeholder keysize with actual keysize
-  sed -i '' -e "s!keyfile_size_here!${keysize}!"             /mnt/etc/nixos/lukskeyfile.nix;
-  
-  # add ./lukskeyfile.nix to the imports of configuration.nix
-  sed -i '' -e "s!\(./hardware-configuration.nix\)!\1\n      ./lukskeyfile.nix!" /mnt/etc/nixos/configuration.nix
-fi
-
 # add the zfs.nix
-cp "${scriptlocation}/zfs.nix" /mnt/etc/nixos/
+cp ./zfs.nix /mnt/etc/nixos/
 
 # generate and insert a unique hostid
 hostid="$(head -c4 /dev/urandom | od -A none -t x4)"
