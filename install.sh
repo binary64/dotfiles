@@ -1,4 +1,4 @@
-#/bin/env bash
+#!/bin/env bash
 
 set -euo pipefail
 
@@ -17,9 +17,9 @@ echo "Installing OS.."
 # IT WILL BE WIPED
 lsblk
 echo "Specify disk (ex: sda) :"
-read rootdisk
+read -r rootdisk
 echo "Specify passphrase (ex: mysecret007) :"
-read passphrase
+read -r passphrase
 
 # Probably no need to change anything below or
 # in the other scripts, there be dragons
@@ -108,15 +108,15 @@ cryptsetup luksRemoveKey /dev/disk/by-partlabel/cryptroot /tmp/keyfile
 rm -f /tmp/keyfile
 
 zpool create        \
--O atime=on         \
--O relatime=on      \
--O compression=lz4  \
--O snapdir=visible  \
--O xattr=sa         \
--o ashift=12        \
--o altroot=/mnt     \
-rpool               \
-/dev/mapper/nixroot
+	-O atime=on         \
+	-O relatime=on      \
+	-O compression=lz4  \
+	-O snapdir=visible  \
+	-O xattr=sa         \
+	-o ashift=12        \
+	-o altroot=/mnt     \
+	rpool               \
+	/dev/mapper/nixroot
 
 echo "Creating dataset for root"
 zfs create -o canmount=off -o mountpoint=none rpool/root
@@ -128,7 +128,15 @@ echo "Creating dataset for home"
 zfs create -o com.sun:auto-snapshot=true -o copies=2 -o mountpoint=legacy rpool/home
 
 echo "Creating dataset for swap"
-zfs create -o com.sun:auto-snapshot=false -o sync=always -o logbias=throughput -o primarycache=metadata -o compression=off -b $(getconf PAGESIZE) -V 8G rpool/swap
+zfs create \
+	-o com.sun:auto-snapshot=false \
+	-o sync=always \
+	-o logbias=throughput \
+	-o primarycache=metadata \
+	-o compression=off \
+	-b "$(getconf PAGESIZE)" \
+	-V 8G \
+	rpool/swap
 
 echo "sleeping..."
 sleep 3
