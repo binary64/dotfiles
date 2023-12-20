@@ -128,9 +128,6 @@ echo "Encryption setup."
 echo "$passphrase" | cryptsetup luksAddKey /dev/disk/by-partlabel/cryptroot --key-file /tmp/keyfile
 echo "added passphrase"
 
-cryptsetup luksAddKey /dev/disk/by-partlabel/cryptroot  -d /tmp/keyfile --new-keyfile-size="${keysize}" "${keyfile}"
-echo "added keyfile"
-
 # mount the cryptdisk at /dev/mapper/nixroot
 cryptsetup luksOpen /dev/disk/by-partlabel/cryptroot nixroot -d /tmp/keyfile
 echo "Disk mounted."
