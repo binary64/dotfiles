@@ -171,6 +171,7 @@ zfs create -o copies=2 -o mountpoint=legacy rpool/home
 
 # dataset for swap
 zfs create -o compression=off -V 8G rpool/swap
+sleep 2
 mkswap -L SWAP /dev/zvol/rpool/swap
 swapon /dev/zvol/rpool/swap
 
