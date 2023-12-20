@@ -1,14 +1,35 @@
 #/bin/env bash
 
-set -e
+set -euo pipefail
+
+# Check if the script is running in pure 'sh', not 'bash' or other shells
+if [ -n "$BASH_VERSION" ]; then
+    echo "This script is not intended to run in bash."
+    exit 1
+elif [ -n "$ZSH_VERSION" ]; then
+    echo "This script is not intended to run in zsh."
+    exit 1
+elif [ -n "$KSH_VERSION" ] || [ -n "$FCEDIT" ]; then
+    echo "This script is not intended to run in ksh."
+    exit 1
+fi
+
+# Check for root
+if [ "$EUID" -ne 0 ]; then
+    echo "This script must be run as root."
+    exit 1
+fi
+
+# Rest of your script...
+echo "Running in a compatible shell."
 
 echo "Installing OS.."
 
 # you only need to set this to the disk to want to install to
 # IT WILL BE WIPED
-echo "Specify disk (ex: /dev/sda) :"
+lsblk
+echo "Specify disk (ex: sda) :"
 read rootdisk
-
 echo "Specify passphrase (ex: mysecret007) :"
 read passphrase
 
@@ -27,75 +48,34 @@ if [ -z "$passphrase" ]; then
 	exit 2
 fi
 
-# absolute location for this script (directory the files are in)
-export scriptlocation=$(dirname $(readlink -f $0))
+export DISK_PATH="/dev/${DISK}"
+export ZFS_POOL="rpool"
 
-partprobe "${rootdisk}"
-echo "Installing to ${rootdisk}"
+# ephemeral datasets
+export ZFS_ENCRYPTED="${ZFS_POOL}/encrypted"
+export ZFS_LOCAL="${ZFS_ENCRYPTED}/local"
+export ZFS_DS_ROOT="${ZFS_LOCAL}/root"
+export ZFS_DS_NIX="${ZFS_LOCAL}/nix"
 
-# we will create a new GPT table
-#
-# o:         create new GPT table
-#         y: confirm creation
-#
-# with the new partition table,
-# we now create the EFI partition
-#
-# n:         create new partion
-#         1: partition number
-#      2048: start position
-#     +300M: make it 300MB big
-#      ef00: set an EFI partition type
-#
-# With the EFI partition, we
-# use the rest of the disk for LUKS
-#
-# n:         create new partition
-#         2: partition number
-#   <empty>: start partition right after first
-#   <empty>: use all remaining space
-#      8300: set generic linux partition type
-#
-# We only need to set the partition labels 
-#
-# c:         change partition label
-#         1: partition to label
-#   efiboot: name of the partition
-# c:         change partition label
-#         2: partition to label
-# cryptroot: name of the partition
-# 
-# w:	     write changes and quit
-#         y: confirm write
+# persistent datasets
+export ZFS_SAFE="${ZFS_ENCRYPTED}/safe"
+export ZFS_DS_HOME="${ZFS_SAFE}/home"
+export ZFS_DS_PERSIST="${ZFS_SAFE}/persist"
 
-{
-	echo o
-echo y
-echo n
-echo 1
-echo 2048
-echo +300M
-echo ef00
-echo n
-echo 2
-echo
-echo
-echo 8300
-echo c
-echo 1
-echo efiboot
-echo c
-echo 2
-echo cryptroot
-echo w
-echo y
-} | gdisk "${rootdisk}"
+export ZFS_BLANK_SNAPSHOT="${ZFS_DS_ROOT}@blank"
+
+partprobe "${DISK_PATH}"
+echo "Installing to ${DISK_PATH}"
+
+(
+	sgdisk -n 0:1M:+513M -t 0:EF00 "$DISK_PATH"
+	sgdisk -n 0:0:+24G -t 0:8200 "$DISK_PATH"
+	sgdisk -n 0:0:0 -t 0:EF00 "$DISK_PATH"
+) || (
+	echo "Disk not empty! Aborting. If you are you sure you wish to nuke the disk, run sgdisk --zap-all \"$DISK_PATH\""
+	exit 4
+)
 echo "Partitioned disk."
-
-# check for the newly created partitions
-# this sometimes gives unrelated errors
-# so we change it to  `partprobe || true`
-partprobe "${rootdisk}" >/dev/null || true
 
 # wait for label to show up
 while [[ ! -e /dev/disk/by-partlabel/efiboot ]];
@@ -107,11 +87,7 @@ while [[ ! -e /dev/disk/by-partlabel/cryptroot ]];
 do
 	sleep 2;
 done
-echo "Label found!"
-
-# check if both labels exist
-ls /dev/disk/by-partlabel/efiboot   >/dev/null
-ls /dev/disk/by-partlabel/cryptroot >/dev/null
+echo "Labels found!"
 
 ## format the EFI partition
 mkfs.vfat /dev/disk/by-partlabel/efiboot
@@ -164,17 +140,20 @@ rpool               \
 /dev/mapper/nixroot \
 
 
-# dataset for / (root)
-zfs create -o mountpoint=none rpool/root
-echo created root dataset
+echo "Creating dataset for root"
+zfs create -o canmount=off -o mountpoint=none rpool/root
+
+echo "Creating dataset for nixos"
 zfs create -o mountpoint=legacy rpool/root/nixos
 
-# dataset for home, make copies of all files against corruption
-zfs create -o copies=2 -o mountpoint=legacy rpool/home
+echo "Creating dataset for home"
+zfs create -o com.sun:auto-snapshot=true -o copies=2 -o mountpoint=legacy rpool/home
 
-# dataset for swap
-zfs create -o compression=off -V 8G rpool/swap
-sleep 2
+echo "Creating dataset for swap"
+zfs create -o com.sun:auto-snapshot=false -o sync=always -o logbias=throughput -o primarycache=metadata -o compression=off -b $(getconf PAGESIZE) -V 8G rpool/swap
+
+echo "sleeping..."
+sleep 3
 mkswap -L SWAP /dev/zvol/rpool/swap
 swapon /dev/zvol/rpool/swap
 
@@ -192,28 +171,20 @@ mount  /dev/disk/by-partlabel/efiboot /mnt/boot
 # set boot filesystem
 zpool set bootfs=rpool/root/nixos rpool
 
-# enable auto snapshots for home dataset
-# defaults to keeping:
-# - 4 frequent snapshots (1 per 15m)
-# - 24 hourly snapshots
-# - 7 daily snapshots 
-# - 4 weekly snapshots 
-# - 12 monthly snapshots
-zfs set com.sun:auto-snapshot=true rpool/home
-
 nixos-generate-config --root /mnt
 
-# add the zfs.nix
-cp ./zfs.nix /mnt/etc/nixos/
-
-# generate and insert a unique hostid
-hostid="$(head -c4 /dev/urandom | od -A none -t x4)"
-sed -i '' -e "s!cafebabe!${hostid}!"                                   /mnt/etc/nixos/zfs.nix
-
-# add ./zfs.nix to the imports of configuration.nix
-sed -i '' -e "s!\(./hardware-configuration.nix\)!\1\n      ./zfs.nix!" /mnt/etc/nixos/configuration.nix
-
 echo "Done!"
-echo "Please check if if everything looks allright in all the files in /mnt/etc/nixos/"
 
+sleep 2
+echo "Rebooting in 5 seconds..."
+sleep 1
+echo "Rebooting in 4 seconds..."
+sleep 1
+echo "Rebooting in 3 seconds..."
+sleep 1
+echo "Rebooting in 2 seconds..."
+sleep 1
+echo "Rebooting in 1 second..."
+sleep 1
+reboot
 
