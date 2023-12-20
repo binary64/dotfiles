@@ -116,8 +116,7 @@ zpool create        \
 -o ashift=12        \
 -o altroot=/mnt     \
 rpool               \
-/dev/mapper/nixroot \
-
+/dev/mapper/nixroot
 
 echo "Creating dataset for root"
 zfs create -o canmount=off -o mountpoint=none rpool/root
