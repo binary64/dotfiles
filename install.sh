@@ -75,6 +75,8 @@ echo +300M
 echo ef00
 echo n
 echo 2
+echo
+echo
 echo 8300
 echo c
 echo 1
