@@ -2,18 +2,6 @@
 
 set -euo pipefail
 
-# Check if the script is running in pure 'sh', not 'bash' or other shells
-if [ -n "$BASH_VERSION" ]; then
-    echo "This script is not intended to run in bash."
-    exit 1
-elif [ -n "$ZSH_VERSION" ]; then
-    echo "This script is not intended to run in zsh."
-    exit 1
-elif [ -n "$KSH_VERSION" ] || [ -n "$FCEDIT" ]; then
-    echo "This script is not intended to run in ksh."
-    exit 1
-fi
-
 # Check for root
 if [ "$EUID" -ne 0 ]; then
     echo "This script must be run as root."
@@ -48,7 +36,7 @@ if [ -z "$passphrase" ]; then
 	exit 2
 fi
 
-export DISK_PATH="/dev/${DISK}"
+export DISK_PATH="/dev/${rootdisk}"
 export ZFS_POOL="rpool"
 
 # ephemeral datasets
