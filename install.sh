@@ -95,7 +95,7 @@ echo "Installing to ${DISK_PATH}"
 	SWAPDEVS+=(${DISK_PATH}4)
 	sgdisk -n5:0:0 -t5:BF00 -c 5:${PART_ROOT} ${DISK_PATH}
 
-	partprobe ${d}
+	partprobe ${DISK_PATH}
 	sleep 2
 ) || (
 	echo "Disk not empty! Aborting. If you are you sure you wish to nuke the disk, run sgdisk --zap-all \"$DISK_PATH\""
