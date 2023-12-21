@@ -52,29 +52,59 @@ export ZFS_DS_PERSIST="${ZFS_SAFE}/persist"
 
 export ZFS_BLANK_SNAPSHOT="${ZFS_DS_ROOT}@blank"
 
+
+# How to name the partitions. This will be visible in 'gdisk -l /dev/disk' and
+# in /dev/disk/by-partlabel.
+PART_MBR="bootcode"
+PART_EFI="efiboot"
+PART_BOOT="bpool"
+PART_SWAP="swap"
+PART_ROOT="rpool"
+
+# How much swap per disk?
+SWAPSIZE=2G
+
+# The type of virtual device for boot and root. If kept empty, the disks will
+# be joined (two 1T disks will give you ~2TB of data). Other valid options are
+# mirror, raidz types and draid types. You will have to manually add other
+# devices like spares, intent log devices, cache and so on. Here we're just
+# setting this up for installation after all.
+#ZFS_BOOT_VDEV="mirror"
+#ZFS_ROOT_VDEV="mirror"
+
+# How to name the boot pool and root pool.
+ZFS_BOOT="bpool"
+ZFS_ROOT="rpool"
+
+# How to name the root volume in which nixos will be installed.
+# If ZFS_ROOT is set to "rpool" and ZFS_ROOT_VOL is set to "nixos",
+# nixos will be installed in rpool/nixos, with a few extra subvolumes
+# (datasets).
+ZFS_ROOT_VOL="nixos"
+
+
 partprobe "${DISK_PATH}"
 echo "Installing to ${DISK_PATH}"
 
 (
-	sgdisk -n 0:1M:+999M -t 0:EF00 "$DISK_PATH"
-	sgdisk -n 0:0:+12G -t 0:8200 "$DISK_PATH"
-	sgdisk -n 0:0:0 -t 0:EF00 "$DISK_PATH"
-	sgdisk -c 1:efiboot "$DISK_PATH"
-	sgdisk -c 2:swap "$DISK_PATH"
-	sgdisk -c 3:cryptroot "$DISK_PATH"
+	sgdisk --zap-all ${DISK_PATH}
+	sgdisk -a1 -n1:0:+100K -t1:EF02 -c 1:${PART_MBR} ${DISK_PATH}
+	sgdisk -n2:1M:+1G -t2:EF00 -c 2:${PART_EFI} ${DISK_PATH}
+	sgdisk -n3:0:+4G -t3:BE00 -c 3:${PART_BOOT} ${DISK_PATH}
+	sgdisk -n4:0:+${SWAPSIZE} -t4:8200 -c 4:${PART_SWAP} ${DISK_PATH}
+	SWAPDEVS+=(${DISK_PATH}4)
+	sgdisk -n5:0:0 -t5:BF00 -c 5:${PART_ROOT} ${DISK_PATH}
+
+	partprobe ${d}
+	sleep 2
 ) || (
 	echo "Disk not empty! Aborting. If you are you sure you wish to nuke the disk, run sgdisk --zap-all \"$DISK_PATH\""
 	exit 4
 )
 echo "Partitioned disk."
 
-# wait for label to show up
-while [[ ! -e /dev/disk/by-partlabel/efiboot ]];
-do
-	sleep 1;
-done
-# wait for label to show up
-while [[ ! -e /dev/disk/by-partlabel/cryptroot ]];
+# Wait for a label to show up
+while [[ ! -e /dev/disk/by-partlabel/${PART_ROOT} ]];
 do
 	sleep 1;
 done
