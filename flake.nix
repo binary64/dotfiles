@@ -25,11 +25,13 @@
       # Extras
       nixos-hardware.url = "github:nixos/nixos-hardware";
       #<kickstart-nix.nvim>
+	    disko.url = "github:nix-community/disko/v1.1.0";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
 
       hyprland.url = "github:hyprwm/Hyprland";
     };
 
-  outputs = inputs @ { self, nixpkgs, unstable, hyprland, home-manager, ... }:
+  outputs = inputs @ { self, nixpkgs, unstable, disko, hyprland, home-manager, ... }:
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
 

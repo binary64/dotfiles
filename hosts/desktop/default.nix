@@ -4,6 +4,7 @@
   imports = [
     ../home.nix
     ./hardware-configuration.nix
+    #./disk-config.nix
   ];
 
   ## Modules
