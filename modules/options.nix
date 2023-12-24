@@ -1,4 +1,4 @@
-{ hyprland, config, options, lib, home-manager, ... }:
+{ config, options, lib, home-manager, ... }:
 
 with lib;
 with lib.my;
