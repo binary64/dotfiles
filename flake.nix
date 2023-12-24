@@ -25,7 +25,7 @@
       # Extras
       nixos-hardware.url = "github:nixos/nixos-hardware";
       #<kickstart-nix.nvim>
-	    disko.url = "github:nix-community/disko/v1.1.0";
+	    disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
       #hyprland.url = "github:hyprwm/Hyprland";
