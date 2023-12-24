@@ -6,13 +6,8 @@
       content = {
         type = "gpt";
         partitions = {
-          boot = {
-            name = "boot";
-            size = "1M";
-            type = "EF02";
-          };
-          esp = {
-            name = "ESP";
+          ESP = {
+            name = "esp";
             size = "500M";
             type = "EF00";
             content = {
@@ -21,30 +16,20 @@
               mountpoint = "/boot";
             };
           };
-          root = {
-            name = "root";
-            size = "100%";
+          swap = {
+            name = "swap";
+            size = "4G";
             content = {
-              type = "lvm_pv";
-              vg = "pool";
+              type = "swap";
             };
           };
-        };
-      };
-    };
-    lvm_vg = {
-      pool = {
-        type = "lvm_vg";
-        lvs = {
           root = {
-            size = "100%FREE";
+            name = "root";
+            end = "100%";
             content = {
               type = "filesystem";
-              format = "ext4";
+              format = "xfs";
               mountpoint = "/";
-              mountOptions = [
-                "defaults"
-              ];
             };
           };
         };

@@ -45,7 +45,7 @@ with lib.my;
   # This is here to appease 'nix flake check' for generic hosts with no
   # hardware-configuration.nix or fileSystem config.
   #TODO: find the initrc option to drop into a shell on failure first
-  #fileSystems."/".device = mkDefault "/dev/disk/by-label/disk-disk1-ESP";
+  fileSystems."/".device = mkDefault "/dev/disk/by-label/root";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false
   # here. Per-interface useDHCP will be mandatory in the future, so we enforce
