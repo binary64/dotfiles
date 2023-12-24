@@ -51,18 +51,6 @@ with lib.my;
   # this default behavior here.
   networking.useDHCP = mkDefault false;
 
-  # Use the latest kernel
-  boot = {
-    loader = {
-      grub = {
-        enable = mkDefault true;
-        device = mkDefault "/dev/sda";
-        useOSProber = mkDefault false;
-      };
-      systemd-boot.enable = mkDefault false;
-    };
-  };
-
   virtualisation.vmware.guest.enable = true;
   services.openssh.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 ];
