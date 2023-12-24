@@ -10,13 +10,14 @@ in
         device = builtins.elemAt disks 0;
         content = {
           type = "gpt";
-          partitions = [{
-            name = "boot";
-            start = "0%";
-            end = "1M";
-            flags = [ "bios_grub" ];
-          }
-            {
+          partitions = {
+            boot = {
+              name = "boot";
+              start = "0%";
+              end = "1M";
+              flags = [ "bios_grub" ];
+            };
+            ESP = {
               name = "ESP";
               start = "1M";
               end = "550MiB";
@@ -28,8 +29,8 @@ in
                 format = "vfat";
                 mountpoint = "/boot";
               };
-            }
-            {
+            };
+            root = {
               name = "root";
               label = "nixos";
               start = "550MiB";
@@ -42,7 +43,8 @@ in
                 mountpoint = "/";
                 mountOptions = defaultXfsOpts;
               };
-            }];
+            };
+          };
         };
       };
     };
