@@ -30,10 +30,7 @@ echo "Partitioning disk with disko.."
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ~/dotfiles/hosts/desktop/disk-config.nix
 
 echo "Installing OS.."
-
-#nixos-generate-config --root /mnt
-
-echo "(TODO)"
+sudo nixos-install --flake ~/dotfiles#desktop --impure --root /mnt --no-root-passwd
 
 exit 0
 
