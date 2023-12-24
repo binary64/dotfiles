@@ -9,7 +9,6 @@
 
   # Use disko
   boot.loader.grub.device = "nodev";
-  boot.loader.grub.version = 2;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.grub.useOSProber = true;
