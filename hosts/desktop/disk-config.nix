@@ -12,7 +12,7 @@
               name = "boot";
               size = "1M";
               type = "EF02";
-            };
+            }
             {
               name = "ESP";
               size = "256MiB";
