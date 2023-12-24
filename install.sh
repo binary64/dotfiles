@@ -8,12 +8,6 @@ if ! command -v sudo &>/dev/null; then
 	exit 1
 fi
 
-# Check for root
-if [ "$EUID" -ne 0 ]; then
-	echo "This script must be run as root."
-	exit 1
-fi
-
 # Check for internet connection
 if ! ping -c 1 1.1.1.1; then
 	echo "No internet connection found."
