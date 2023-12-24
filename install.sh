@@ -27,7 +27,8 @@ if ! command -v zpool &>/dev/null; then
 fi
 
 echo "Partitioning disk with disko.."
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ~/dotfiles/hosts/desktop/disk-config.nix
+DISKNAME='sda'
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko ~/dotfiles/hosts/desktop/disk-config.nix --arg disks "[ \"/dev/$DISKNAME\" ]"
 
 echo "Installing OS.."
 sudo nixos-install --flake ~/dotfiles#desktop --impure --root /mnt --no-root-passwd

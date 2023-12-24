@@ -1,16 +1,21 @@
+{ lib, disks ? [ "/dev/sda" ], ... }: {
 { disko.devices = {
   disk = {
     my-disk = {
-      device = "/dev/sda";
+      device = builtins.elemAt disks 0;
       type = "disk";
       content = {
         type = "table";
         format = "gpt";
         partitions = [
           {
+            name = "boot";
+            size = "1M";
+            type = "EF02";
+          };
+          {
             name = "ESP";
-            start = "1MiB";
-            end = "128MiB";
+            size = "256MiB";
             flags = [ "esp" ];
             bootable = true;
             content = {
@@ -22,8 +27,7 @@
           }
           {
             name = "primary";
-            start = "128MiB";
-            end = "100%";
+            size = "100%";
             content = {
               type = "luks";
               name = "cryptroot";

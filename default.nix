@@ -55,6 +55,17 @@ with lib.my;
   services.openssh.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 ];
 
+  boot = {
+    loader = {
+      grub = {
+        enable = mkDefault true;
+        device = mkDefault "/dev/sda";
+        useOSProber = mkDefault false;
+      };
+      systemd-boot.enable = mkDefault false;
+    };
+  };
+
   # Just the bear necessities...
   environment.systemPackages = with pkgs; [
     bind
