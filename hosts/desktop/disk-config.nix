@@ -1,7 +1,7 @@
 { disko.devices = {
   disk = {
     my-disk = {
-      device = "/dev/sda";
+      device = "sda";
       type = "disk";
       content = {
         type = "table";
@@ -12,6 +12,7 @@
             start = "1MiB";
             end = "128MiB";
             flags = [ "esp" ];
+            bootable = true;
             content = {
               type = "filesystem";
               format = "vfat";
