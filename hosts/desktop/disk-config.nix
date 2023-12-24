@@ -1,52 +1,48 @@
-{ lib, disks ? [ "/dev/sda" ], ... }: {
+{ disks ? [ "/dev/vda" ], ... }:
+let
+  defaultXfsOpts = [ "defaults" "relatime" "nodiratime" ];
+in
+{
   disko.devices = {
     disk = {
-      my-disk = {
-        device = builtins.elemAt disks 0;
+      vda = {
         type = "disk";
+        device = builtins.elemAt disks 0;
         content = {
           type = "table";
           format = "gpt";
-          partitions = [
-            {
-              name = "boot";
-              size = "1M";
-              type = "EF02";
-            }
+          partitions = [{
+            name = "boot";
+            start = "0%";
+            end = "1M";
+            flags = [ "bios_grub" ];
+          }
             {
               name = "ESP";
-              size = "256MiB";
-              flags = [ "esp" ];
+              start = "1M";
+              end = "550MiB";
               bootable = true;
+              flags = [ "esp" ];
+              fs-type = "fat32";
               content = {
                 type = "filesystem";
                 format = "vfat";
-                extraArgs = [ "-F" "32" "-n" "EFI" ];
                 mountpoint = "/boot";
               };
             }
             {
-              name = "primary";
-              size = "100%";
+              name = "root";
+              start = "550MiB";
+              end = "100%";
               content = {
-                type = "luks";
-                name = "cryptroot";
-                keyFile = "/tmp/cryptroot.key";
-                extraFormatArgs = [ "--type" "luks1" "--hash" "sha512" ];
-                extraOpenArgs = [
-                  "--allow-discards"
-                  "--perf-no_read_workqueue"
-                  "--perf-no_write_workqueue"
-                ];
-                content = {
-                  type = "filesystem";
-                  format = "ext4";
-                  extraArgs = [ "-L" "nixos" ];
-                  mountpoint = "/";
-                };
+                type = "filesystem";
+                # Overwirte the existing filesystem
+                extraArgs = [ "-f" ];
+                format = "xfs";
+                mountpoint = "/";
+                mountOptions = defaultXfsOpts;
               };
-            }
-          ];
+            }];
         };
       };
     };
