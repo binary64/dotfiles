@@ -45,6 +45,7 @@ with lib.my;
         inherit name;
         description = "The primary user account";
         extraGroups = [ "wheel" ];
+        hashedPassword = "$6$rYcup/d9UkTGbeSZ$/nphU4GEwxSUI5TmmII/.QWq7cYsZikpMJnhcydANqO.Ik2gKSPjnbgm3zy5xLsb7AcAWBdAsbXHOa7S42ARJ0";
         isNormalUser = true;
         home = "/home/${name}";
         group = "users";
@@ -65,7 +66,6 @@ with lib.my;
       #   home.configFile  ->  home-manager.users.hlissner.home.xdg.configFile
       #   home.dataFile    ->  home-manager.users.hlissner.home.xdg.dataFile
       users.${config.user.name} = {
-        hashedPassword = "$6$rYcup/d9UkTGbeSZ$/nphU4GEwxSUI5TmmII/.QWq7cYsZikpMJnhcydANqO.Ik2gKSPjnbgm3zy5xLsb7AcAWBdAsbXHOa7S42ARJ0";
         home = {
           file = mkAliasDefinitions options.home.file;
           # Necessary for home-manager to work with flakes, otherwise it will
