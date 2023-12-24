@@ -21,7 +21,6 @@ in
               name = "ESP";
               start = "1M";
               end = "550MiB";
-              flags = [ "esp" ];
               fs-type = "fat32";
               content = {
                 type = "filesystem";
