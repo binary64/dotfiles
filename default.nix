@@ -53,16 +53,13 @@ with lib.my;
 
   # Use the latest kernel
   boot = {
-    #kernelPackages = mkDefault pkgs.linuxKernel.packages.linux_5_18;
     loader = {
       grub = {
-        enable = true;
-        device = "/dev/sda";
-        useOSProber = false;
+        enable = mkDefault true;
+        device = mkDefault "/dev/sda";
+        useOSProber = mkDefault false;
       };
-      #efi.canTouchEfiVariables = mkDefault true;
-      #systemd-boot.configurationLimit = 10;
-      #systemd-boot.enable = mkDefault true;
+      systemd-boot.enable = mkDefault false;
     };
   };
 

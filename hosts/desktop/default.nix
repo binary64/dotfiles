@@ -9,14 +9,11 @@
 
   # Use disko
   boot.loader.grub.device = "nodev";
-  boot.loader.grub.enable = true;
   boot.loader.grub.version = 2;
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.enableCryptodisk = true;
-  boot.loader.grub.devices = [ "/dev/sda" ];
-
 
   # Enable the OpenSSH server.
   services.openssh.enable = true;
