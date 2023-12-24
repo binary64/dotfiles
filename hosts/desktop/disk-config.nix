@@ -31,7 +31,8 @@ in
               };
             }
             {
-              name = "nixos";
+              name = "root";
+              label = "nixos";
               start = "550MiB";
               end = "100%";
               content = {
