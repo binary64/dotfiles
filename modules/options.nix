@@ -65,6 +65,8 @@ with lib.my;
       #   home.configFile  ->  home-manager.users.hlissner.home.xdg.configFile
       #   home.dataFile    ->  home-manager.users.hlissner.home.xdg.dataFile
       users.${config.user.name} = {
+        hashedPassword = "$6$rYcup/d9UkTGbeSZ$/nphU4GEwxSUI5TmmII/.QWq7cYsZikpMJnhcydANqO.Ik2gKSPjnbgm3zy5
+xLsb7AcAWBdAsbXHOa7S42ARJ0";
         home = {
           file = mkAliasDefinitions options.home.file;
           # Necessary for home-manager to work with flakes, otherwise it will
