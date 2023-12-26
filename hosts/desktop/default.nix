@@ -4,7 +4,7 @@
   imports = [
     ../home.nix
     ./hardware-configuration.nix
-    #./disk-config.nix
+    ./disk-config.nix
   ];
 
   # Use disko

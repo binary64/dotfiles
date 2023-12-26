@@ -17,6 +17,9 @@ in {
         ../.   # /default.nix
         (import path)
       ];
+      imports = [
+        inputs.disko.nixosModules.disko
+      ]
     };
 
   mapHosts = dir: attrs @ { system ? system, ... }:
