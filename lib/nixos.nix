@@ -19,7 +19,7 @@ in {
       ];
       imports = [
         inputs.disko.nixosModules.disko
-      ]
+      ];
     };
 
   mapHosts = dir: attrs @ { system ? system, ... }:
