@@ -13,9 +13,10 @@
   boot = {
     loader = {
       grub = {
-        enable = false;
+        devices = [ "/dev/sda" ];
+        efiSupport = true;
+        efiInstallAsRemovable = true;
       };
-      systemd-boot.enable = true;
     };
   };
 
