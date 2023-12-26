@@ -10,6 +10,15 @@
   # Use disko
   #boot.loader.systemd-boot.enable = true;
 
+  boot = {
+    loader = {
+      grub = {
+        enable = false;
+      };
+      systemd-boot.enable = true;
+    };
+  };
+
   # Enable the OpenSSH server.
   services.openssh.enable = true;
   # Open the SSH port
