@@ -31,7 +31,7 @@
       #hyprland.url = "github:hyprwm/Hyprland";
     };
 
-  outputs = inputs @ { self, nixpkgs, unstable, disko, home-manager, ... }:
+  outputs = inputs @ { self, nixpkgs, unstable, hyprland, disko, home-manager, ... }:
     let
       inherit (lib.my) mapModules mapModulesRec mapHosts;
 
