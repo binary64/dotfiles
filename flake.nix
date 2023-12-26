@@ -13,8 +13,8 @@
   inputs = 
     {
       # Core dependencies.
-      nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-      unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+      stable.url = "github:NixOS/nixpkgs/nixos-23.11";
+      nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
       home-manager = {
         url = "github:nix-community/home-manager/release-23.11";
         inputs.nixpkgs.follows = "nixpkgs";
@@ -28,7 +28,7 @@
 	    disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
 
-      #hyprland.url = "github:hyprwm/Hyprland";
+      hyprland.url = "github:hyprwm/Hyprland";
     };
 
   outputs = inputs @ { self, nixpkgs, unstable, hyprland, disko, home-manager, ... }:
