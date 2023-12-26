@@ -68,6 +68,15 @@
       nixosConfigurations =
         mapHosts ./hosts {};
 
+      homeConfigurations."user" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        modules = [
+          hyprland.homeManagerModules.default
+          { wayland.windowManager.hyprland.enable = true; }
+          # ...
+        ];
+      };
+
       devShell."${system}" =
         import ./shell.nix { inherit pkgs; };
 

@@ -72,10 +72,6 @@ with lib.my;
           # look for a nixpkgs channel.
           stateVersion = config.system.stateVersion;
         };
-        #modules = [
-        #  hyprland.homeManagerModules.default
-        #  {wayland.windowManager.hyprland.enable = true;}
-        #];
         xdg = {
           configFile = mkAliasDefinitions options.home.configFile;
           dataFile   = mkAliasDefinitions options.home.dataFile;
