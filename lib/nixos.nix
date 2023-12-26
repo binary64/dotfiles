@@ -10,9 +10,6 @@ in {
       specialArgs = { inherit lib inputs system; };
       modules = [
         {
-          imports = [
-            inputs.disko.nixosModules.disko
-          ];
           nixpkgs.pkgs = pkgs;
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
         }
