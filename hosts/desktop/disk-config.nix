@@ -6,6 +6,10 @@
     content = {
       type = "gpt";
       partitions = {
+        mbr = {
+          size = "1M";
+          type = "EF02";
+        };
         ESP = {
           name = "esp";
           size = "500M";
