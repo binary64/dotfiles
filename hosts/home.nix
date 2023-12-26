@@ -10,6 +10,9 @@ with lib;
     neovim = {
       enable = true;
     };
+    hyprland = {
+      enable = true;
+    };
   };
   #environment.systemPackages = with pkgs; [
   #  nodePackages.pnpm
