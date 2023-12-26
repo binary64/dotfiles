@@ -10,15 +10,15 @@ in {
       specialArgs = { inherit lib inputs system; };
       modules = [
         {
+          imports = [
+            inputs.disko.nixosModules.disko
+          ];
           nixpkgs.pkgs = pkgs;
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
         }
         (filterAttrs (n: v: !elem n [ "system" ]) attrs)
         ../.   # /default.nix
         (import path)
-      ];
-      imports = [
-        inputs.disko.nixosModules.disko
       ];
     };
 
