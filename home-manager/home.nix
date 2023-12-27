@@ -13,7 +13,6 @@
     
     #User Apps
     celluloid
-    discord
     librewolf
     cool-retro-term
     bibata-cursors
@@ -21,7 +20,9 @@
     lollypop
     lutris
     openrgb
-    betterdiscord-installer
+
+    # discord
+    # betterdiscord-installer
     
 
     #utils
