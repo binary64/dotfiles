@@ -71,6 +71,7 @@
       homeConfigurations."user" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [
+          { imports = [ ./home/home.nix ]; }
           hyprland.homeManagerModules.default
           { wayland.windowManager.hyprland.enable = true; }
           # ...
