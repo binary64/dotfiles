@@ -1,8 +1,8 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, hyprland, ... }:
 
 {
   imports = [
-    inputs.hyprland.homeManagerModules.default
+    hyprland.homeManagerModules.default
   ];
 
   home = {
