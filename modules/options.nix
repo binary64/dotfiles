@@ -66,7 +66,7 @@ with lib.my;
       #   home.configFile  ->  home-manager.users.hlissner.home.xdg.configFile
       #   home.dataFile    ->  home-manager.users.hlissner.home.xdg.dataFile
       users.${config.user.name} = {
-        imports = [ ./home-manager/home.nix ];
+        imports = [ ../home-manager/home.nix ];
         home = {
           file = mkAliasDefinitions options.home.file;
           # Necessary for home-manager to work with flakes, otherwise it will
