@@ -51,7 +51,7 @@
     pamixer
     mpc-cli
     tty-clock
-    exa
+    eza
     btop
     tokyo-night-gtk
 
