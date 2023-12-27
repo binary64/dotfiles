@@ -16,11 +16,6 @@ in {
         (filterAttrs (n: v: !elem n [ "system" ]) attrs)
         ../.   # /default.nix
         (import path)
-        inputs.home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-          }
       ];
     };
 
