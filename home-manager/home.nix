@@ -16,7 +16,7 @@
     librewolf
     cool-retro-term
     bibata-cursors
-    vscode
+    #vscode
     lollypop
     lutris
     openrgb
