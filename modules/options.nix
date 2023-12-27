@@ -76,7 +76,7 @@ with lib.my;
           configFile = mkAliasDefinitions options.home.configFile;
           dataFile   = mkAliasDefinitions options.home.dataFile;
         };
-        modules = [ ./home-manager/home.nix ]
+        modules = [ ./home-manager/home.nix ];
 	      programs = mkAliasDefinitions options.home.programs;
       };
     };
