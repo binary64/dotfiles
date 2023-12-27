@@ -76,7 +76,7 @@ with lib.my;
           configFile = mkAliasDefinitions options.home.configFile;
           dataFile   = mkAliasDefinitions options.home.dataFile;
         };
-	programs = mkAliasDefinitions options.home.programs;
+	#programs = mkAliasDefinitions options.home.programs;
 
       };
     };

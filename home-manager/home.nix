@@ -1,4 +1,4 @@
-{ hyprland, pkgs, ...}: {
+{ pkgs, ...}: {
 
   imports = [
     ./desktop/hyprland.nix
