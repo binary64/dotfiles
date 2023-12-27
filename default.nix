@@ -41,7 +41,7 @@ with lib.my;
       };
     };
   system.configurationRevision = with inputs; mkIf (self ? rev) self.rev;
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.11";
 
   ## Some reasonable, global defaults
   # This is here to appease 'nix flake check' for generic hosts with no
