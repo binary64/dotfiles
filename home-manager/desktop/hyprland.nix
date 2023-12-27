@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    hyprland.homeManagerModules.default
+  ];
+  
   home = {
     sessionVariables = {
         EDITOR = "lvim";

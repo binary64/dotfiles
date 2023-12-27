@@ -7,7 +7,6 @@ with lib.my;
     # I use home-manager to deploy files to $HOME; little else
     [
       inputs.home-manager.nixosModules.home-manager
-      ./home-manager/home.nix
     ]
     # All my personal modules
     ++ (mapModulesRec' (toString ./modules) import);
