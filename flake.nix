@@ -71,6 +71,7 @@
       homeConfigurations."user" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [
+          hyprland.homeManagerModules.default
           ./home-manager/home.nix
         ];
       };
