@@ -12,14 +12,14 @@
   home.packages = (with pkgs; [
     
     #User Apps
-    celluloid
+    #celluloid
     librewolf
-    cool-retro-term
+    #cool-retro-term
     bibata-cursors
     #vscode
-    lollypop
+    #lollypop
     #lutris # wat, this requires steam (non-free)
-    openrgb
+    #openrgb
 
     # discord
     # betterdiscord-installer
@@ -36,12 +36,12 @@
     appimage-run
     xflux
     dunst
-    pavucontrol
+    #pavucontrol
     sqlite
 
     #misc 
-    cava
-    neovim
+    #cava
+    #neovim
     nano
     rofi
     nitch
