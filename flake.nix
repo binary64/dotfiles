@@ -13,8 +13,8 @@
   inputs = 
     {
       # Core dependencies.
-      stable.url = "github:NixOS/nixpkgs/nixos-23.11";
-      nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+      nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+      unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
       home-manager = {
         url = "github:nix-community/home-manager";
         inputs.nixpkgs.follows = "nixpkgs";
@@ -25,8 +25,10 @@
       # Extras
       nixos-hardware.url = "github:nixos/nixos-hardware";
       #<kickstart-nix.nvim>
+
+      # Disko - disk partitioning
 	    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
+      disko.inputs.nixpkgs.follows = "nixpkgs";
 
       hyprland.url = "github:hyprwm/Hyprland";
     };
@@ -85,17 +87,8 @@
         };
       } // import ./templates;
       defaultTemplate = self.templates.full;
-
-      defaultApp."${system}" = {
-        type = "app";
-        program = ./bin/hey;
-      };
     };
 
     #packages.home-manager = home-manager.defaultPackage.${system};
 
-
-
-
 }
-
