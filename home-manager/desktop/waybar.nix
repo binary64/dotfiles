@@ -1,6 +1,5 @@
 {
   config,
-  custom,
   inputs,
   lib,
   pkgs,
@@ -114,7 +113,7 @@
       * {
         border: none;
         border-radius: 0px;
-        font-family: ${custom.font};
+        font-family: serif;
         font-size: 12px;
         min-height: 0;
       }
