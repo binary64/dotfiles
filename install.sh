@@ -8,12 +8,6 @@ if ! command -v sudo &>/dev/null; then
 	exit 1
 fi
 
-# Check that UID is defined and is 0
-if [ -z "${UID+x}" ] || [ "$UID" -ne 0 ]; then
-	echo "Please run this script as root."
-	exit 1
-fi
-
 # Check for internet connection
 if ! ping -c 1 1.1.1.1 &>/dev/null; then
 	echo "No internet connection found."
