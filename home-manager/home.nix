@@ -1,7 +1,7 @@
 { pkgs, ...}: {
 
   imports = [
-    ./desktop/hyprland.nix
+    ./desktop
   ];
 
 #   home = {

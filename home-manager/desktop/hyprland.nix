@@ -42,7 +42,9 @@
     # Autostart
 
     exec-once = hyprctl setcursor Bibata-Modern-Classic 24
-    exec-once = dunst
+    exec-once = [
+        "sleep 5 && waybar"
+    ]
 
     source = /home/enzo/.config/hypr/colors
     exec = pkill waybar & sleep 0.5 && waybar
