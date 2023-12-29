@@ -2,6 +2,12 @@
 
 set -euo pipefail
 
+# Check for existence of `sudo` binary
+if ! command -v sudo &>/dev/null; then
+	echo "sudo not found. Please install sudo before running this script."
+	exit 1
+fi
+
 # Check that UID is defined and is 0
 if [ -z "${UID+x}" ] || [ "$UID" -ne 0 ]; then
 	echo "Please run this script as root."
@@ -9,7 +15,7 @@ if [ -z "${UID+x}" ] || [ "$UID" -ne 0 ]; then
 fi
 
 # Check for internet connection
-if ! ping -c 1 1.1.1.1; then
+if ! ping -c 1 1.1.1.1 &>/dev/null; then
 	echo "No internet connection found."
 	exit 1
 fi
@@ -27,9 +33,18 @@ if ! command -v zpool &>/dev/null; then
 fi
 
 echo "Partitioning disk with disko.."
-nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake ~/dotfiles#desktop
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko -- --mode disko --flake ~/dotfiles#desktop
 
 echo "Installing OS.."
-nixos-install --flake ~/dotfiles#desktop --impure --root /mnt --no-root-passwd
+sudo nixos-install --flake ~/dotfiles#desktop --impure --root /mnt --no-root-passwd
+
+# Ensure /mnt directory exists
+if [ ! -d /mnt ]; then
+	echo "/mnt directory not found. Something went wrong."
+	exit 1
+fi
+
+cp -r ~/dotfiles /mnt/etc/nixos
+lsblk
 
 echo "DONE! You should now \`reboot\` into your new system."
