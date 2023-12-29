@@ -31,10 +31,10 @@
     git
     rustup
     gnumake
-    catimg
+    #catimg
     curl
     appimage-run
-    xflux
+    #xflux
     dunst
     #pavucontrol
     sqlite
@@ -44,10 +44,10 @@
     #neovim
     nano
     rofi
-    nitch
+    #nitch
     wget
-    grim
-    slurp
+    #grim
+    #slurp
     wl-clipboard
     pamixer
     mpc-cli
