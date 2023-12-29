@@ -18,7 +18,7 @@
     bibata-cursors
     #vscode
     lollypop
-    lutris
+    #lutris # wat, this requires steam (non-free)
     openrgb
 
     # discord
