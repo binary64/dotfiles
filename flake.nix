@@ -30,6 +30,10 @@
 	    disko.url = "github:nix-community/disko";
       disko.inputs.nixpkgs.follows = "nixpkgs";
 
+      # Weekly database for command-not-found system
+      nix-index-database.url = "github:Mic92/nix-index-database";
+      nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+
       hyprland.url = "github:hyprwm/Hyprland";
     };
 
@@ -74,6 +78,7 @@
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         modules = [
           hyprland.homeManagerModules.default
+          nix-index-database.hmModules.nix-index
         ];
       };
 
