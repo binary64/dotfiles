@@ -295,7 +295,7 @@
 
         # Lock the session, and then turn off the display after some time.
         # Turn the display back on when triggered a second time.
-        bindrl.", XF86Display" = "exec, ${exec.toggleSilentRunning}";
+        #bindrl.", XF86Display" = "exec, ${exec.toggleSilentRunning}";
 
         # Regular media control keys, if your laptop or bluetooth device has them.
         bindl.", XF86AudioPlay" = "exec, ${exec.playerctl} play-pause";
