@@ -43,7 +43,7 @@
         exec = {
             playerctl = lib.getExe pkgs.playerctl;
             slight = lib.getExe pkgs.slight;
-            osdFunc = lib.getExe config.utilities.osd-functions.package;
+            #osdFunc = lib.getExe config.utilities.osd-functions.package;
             activateCleanMode = "disable-input-devices-notify";
             # pinWindow = pkgs.patchShellScript ./scripts/pin-window.sh {
             #     runtimeInputs =
@@ -280,14 +280,14 @@
         # <https://github.com/xkbcommon/libxkbcommon/blob/master/include/xkbcommon/xkbcommon-keysyms.h>
 
         # Mute/unmute the active audio output.
-        bindl.", XF86AudioMute" = "exec, ${exec.osdFunc} output mute";
+        #bindl.", XF86AudioMute" = "exec, ${exec.osdFunc} output mute";
 
         # Raise and lower the volume of the active audio output.
-        bindel.", XF86AudioRaiseVolume" = "exec, ${exec.osdFunc} output +0.05";
-        bindel.", XF86AudioLowerVolume" = "exec, ${exec.osdFunc} output -0.05";
+        #bindel.", XF86AudioRaiseVolume" = "exec, ${exec.osdFunc} output +0.05";
+        #bindel.", XF86AudioLowerVolume" = "exec, ${exec.osdFunc} output -0.05";
 
         # Mute the active microphone or audio source.
-        bindl.", XF86AudioMicMute" = "exec, ${exec.osdFunc} input mute";
+        #bindl.", XF86AudioMicMute" = "exec, ${exec.osdFunc} input mute";
 
         # Raise and lower display brightness.
         bindel.", XF86MonBrightnessUp" = "exec, ${exec.slight} inc 10 -t 300ms";
