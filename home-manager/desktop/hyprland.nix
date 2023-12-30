@@ -225,46 +225,46 @@
         ### ACTIVE WINDOW ACTIONS ###
         groups.killWindow
         {
-        # Toggle full-screen for the active window.
-        bind."SUPER_SHIFT, F" = "fullscreen, 0";
+            # Toggle full-screen for the active window.
+            bind."SUPER_SHIFT, F" = "fullscreen, 0";
 
-        # Float/unfloat the active window.
-        bind."SUPER, F" = "togglefloating,";
+            # Float/unfloat the active window.
+            bind."SUPER, F" = "togglefloating,";
 
-        # Float and pin or unpin the active window.
-        bind."SUPER, P" = "exec, ${exec.pinWindow}";
+            # Float and pin or unpin the active window.
+            #bind."SUPER, P" = "exec, ${exec.pinWindow}";
         }
         ### MISCELLANEOUS ###
         {
-        # Dismiss all Dunst notifications.
-        bind."SUPER_ALT, N" = "exec, dunstctl close-all";
+            # Dismiss all Dunst notifications.
+            bind."SUPER_ALT, N" = "exec, dunstctl close-all";
 
-        # Lock the session immediately.
-        bind."SUPER, l" = "exec, loginctl lock-session";
+            # Lock the session immediately.
+            bind."SUPER, l" = "exec, loginctl lock-session";
 
-        # Kill the window manager.
-        bind."SUPER_SHIFT, M" = "exit,";
+            # Kill the window manager.
+            bind."SUPER_SHIFT, M" = "exit,";
 
-        # Forcefully kill a program after selecting its window with the mouse.
-        bind."SUPER_SHIFT, Q" = "exec, hyprctl kill";
+            # Forcefully kill a program after selecting its window with the mouse.
+            bind."SUPER_SHIFT, Q" = "exec, hyprctl kill";
 
-        # Select a monitor and take a screenshot, saving to a file.
-        bind."SUPER, print" = "exec, prtsc -m m -D -b 00000066";
+            # Select a monitor and take a screenshot, saving to a file.
+            bind."SUPER, print" = "exec, prtsc -m m -D -b 00000066";
 
-        # Select a region and take a screenshot, saving to the clipboard.
-        bind."SUPER_SHIFT, print" = "exec, prtsc -c -m r -D -b 00000066";
+            # Select a region and take a screenshot, saving to the clipboard.
+            bind."SUPER_SHIFT, print" = "exec, prtsc -c -m r -D -b 00000066";
 
-        # Open Rofi to select an emoji to copy to clipboard.
-        bind."SUPER, equal" = "exec, rofi -show emoji -emoji-mode copy";
+            # Open Rofi to select an emoji to copy to clipboard.
+            bind."SUPER, equal" = "exec, rofi -show emoji -emoji-mode copy";
 
-        # Enable cleaning mode, disable integrated input devices
-        # for furious scrubbing with a damp cloth.
-        bindrl."SUPER_CTRL_SHIFT, delete" = "exec, ${exec.activateCleanMode}";
+            # Enable cleaning mode, disable integrated input devices
+            # for furious scrubbing with a damp cloth.
+            bindrl."SUPER_CTRL_SHIFT, delete" = "exec, ${exec.activateCleanMode}";
 
-        # Bypass all binds for the window manager and pass key combinations
-        # directly to the active window.
-        bind."SUPER_SHIFT, K" = "submap, passthru";
-        submap.passthru = { bind."SUPER_SHIFT, K" = "submap, reset"; };
+            # Bypass all binds for the window manager and pass key combinations
+            # directly to the active window.
+            bind."SUPER_SHIFT, K" = "submap, passthru";
+            submap.passthru = { bind."SUPER_SHIFT, K" = "submap, reset"; };
         }
         ### PROGRAM LAUNCHING ###
         groups.launchPrograms
