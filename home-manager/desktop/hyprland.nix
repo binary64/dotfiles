@@ -411,7 +411,7 @@
 
     # Input config
     input {
-        kb_layout = gb
+        kb_layout = uk
         kb_variant =
         kb_model =
         kb_options =
