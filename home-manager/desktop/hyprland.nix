@@ -42,7 +42,7 @@
 
         exec = {
             playerctl = lib.getExe pkgs.playerctl;
-            slight = lib.getExe pkgs.slight;
+            #slight = lib.getExe pkgs.slight;
             #osdFunc = lib.getExe config.utilities.osd-functions.package;
             activateCleanMode = "disable-input-devices-notify";
             # pinWindow = pkgs.patchShellScript ./scripts/pin-window.sh {
@@ -290,8 +290,8 @@
         #bindl.", XF86AudioMicMute" = "exec, ${exec.osdFunc} input mute";
 
         # Raise and lower display brightness.
-        bindel.", XF86MonBrightnessUp" = "exec, ${exec.slight} inc 10 -t 300ms";
-        bindel.", XF86MonBrightnessDown" = "exec, ${exec.slight} dec 10 -t 300ms";
+        #bindel.", XF86MonBrightnessUp" = "exec, ${exec.slight} inc 10 -t 300ms";
+        #bindel.", XF86MonBrightnessDown" = "exec, ${exec.slight} dec 10 -t 300ms";
 
         # Lock the session, and then turn off the display after some time.
         # Turn the display back on when triggered a second time.
