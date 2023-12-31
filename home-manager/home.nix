@@ -11,7 +11,7 @@
 #   };
 
   home.packages = (with pkgs; [
-    
+oscclip    
     #User Apps
     #celluloid
     librewolf

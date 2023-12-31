@@ -22,6 +22,7 @@
       ];
       extraConfig = ''
         set -sg terminal-overrides ",*:Tc"
+        set -g allow-passthrough on
         set -g detach-on-destroy off             # When destory switch to the prev session
         set -g default-shell $SHELL              # use default shell
         set -sg escape-time 5                    # delay shorter
