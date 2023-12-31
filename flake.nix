@@ -26,6 +26,16 @@
       nixos-hardware.url = "github:nixos/nixos-hardware";
       #<kickstart-nix.nvim>
 
+      # Fish plugins
+      fish-bobthefish-theme = {
+        url = github:gvolpe/theme-bobthefish;
+        flake = false;
+      };
+      fish-keytool-completions = {
+        url = github:ckipp01/keytool-fish-completions;
+        flake = false;
+      };
+      
       # Disko - disk partitioning
 	    disko.url = "github:nix-community/disko";
       disko.inputs.nixpkgs.follows = "nixpkgs";
