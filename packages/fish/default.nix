@@ -14,7 +14,7 @@ let
     set -g theme_color_scheme solarized
   '';
 
-  custom = pkgs.callPackage ./plugins.nix { };
+  #custom = pkgs.callPackage ./plugins.nix { };
 
   fenv = {
     inherit (pkgs.fishPlugins.foreign-env) src;
@@ -31,10 +31,10 @@ in
 {
   programs.fish = {
     enable = true;
-    plugins = [ custom.theme fenv ];
+    plugins = [ fenv ];
     interactiveShellInit = ''
       eval (direnv hook fish)
-      any-nix-shell fish --info-right | source
+      ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
     '';
     shellAliases = {
       inherit dc;
@@ -46,7 +46,7 @@ in
       ls = "${pkgs.eza}/bin/eza";
       ll = "ls -a";
       ".." = "cd ..";
-      firefox = "${lib.getExe pkgs.firefox-beta-bin}";
+      #firefox = "${lib.getExe pkgs.firefox-beta-bin}";
       ping = "${pkgs.prettyping}/bin/prettyping";
       tree = "${pkgs.eza}/bin/eza -T";
       xdg-open = "${pkgs.mimeo}/bin/mimeo";
@@ -54,6 +54,6 @@ in
     shellInit = fishConfig;
   };
 
-  xdg.configFile."fish/completions/keytool.fish".text = custom.completions.keytool;
-  xdg.configFile."fish/functions/fish_prompt.fish".text = custom.prompt;
+  #xdg.configFile."fish/completions/keytool.fish".text = custom.completions.keytool;
+  xdg.configFile."fish/functions/fish_prompt.fish".text = "asdf";
 }
