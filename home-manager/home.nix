@@ -28,7 +28,6 @@
     #utils
     ranger
     wlr-randr
-    git
     rustup
     gnumake
     #catimg
@@ -69,6 +68,12 @@
 #   };
 
   #programs.home-manager.enable = true;
+
+  programs.git = {
+    enable = true;
+    userName = "binary64";
+    userEmail = "1680627+binary64@users.noreply.github.com";
+  };
 
   home.stateVersion = "23.11";
 }
