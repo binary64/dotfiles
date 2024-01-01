@@ -10,9 +10,9 @@
 #     username = "enzo";
 #     homeDirectory = "/home/enzo";
 #   };
-  home.shellAliases = {
-    ls = "${pkgs.eza}/bin/eza";
-  };
+  #home.shellAliases = {
+  #  ls = "${pkgs.eza}/bin/eza";
+  #};
   home.packages = (with pkgs; [
 oscclip    
     #User Apps

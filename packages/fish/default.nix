@@ -43,8 +43,6 @@ in
       dcd = "${dc} down --remove-orphans";
       drm = "docker images -a -q | xargs docker rmi -f";
       du = "${pkgs.ncdu}/bin/ncdu --color dark -rr -x";
-      #ls = "${pkgs.eza}/bin/eza";
-      ll = "ls -a";
       ".." = "cd ..";
       #firefox = "${lib.getExe pkgs.firefox-beta-bin}";
       ping = "${pkgs.prettyping}/bin/prettyping";

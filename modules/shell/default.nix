@@ -40,6 +40,9 @@ gp = "git push --no-verify";
     };
     eza = {
       enable = true;
+      enableAliases = true;
+      git = true;
+      icons = true;
     };
     lazygit = {
       enable = true;
