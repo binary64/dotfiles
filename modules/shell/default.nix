@@ -6,16 +6,14 @@
     ripgrep
     fd # find, in rust
     neofetch
-podman-compose
+    podman-compose
+    iotop-c
 ];
   virtualisation.oci-containers.backend = "podman";
   virtualisation.containers.registries = {
     search = [ "docker.io" ];
   };
   programs = {
-    iotop = {
-      enable = true;
-    };
     fish = {
       enable = true;
     };
