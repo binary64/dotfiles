@@ -2,6 +2,7 @@
 
   imports = [
     ./desktop
+    ./terminal
     ../packages/fish
   ];
 
@@ -9,7 +10,9 @@
 #     username = "enzo";
 #     homeDirectory = "/home/enzo";
 #   };
-
+  home.shellAliases = {
+    ls = "ls";
+  };
   home.packages = (with pkgs; [
 oscclip    
     #User Apps

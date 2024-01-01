@@ -44,6 +44,9 @@ gp = "git push --no-verify";
     lazygit = {
       enable = true;
     };
+    gitui = {
+      enable = true;
+    };
     zoxide = {
       enable = true;
     };
@@ -66,9 +69,6 @@ gp = "git push --no-verify";
 		enable = true;
 	};
 	htop = {
-		enable = true;
-	};
-	lf = {
 		enable = true;
 	};
 	fzf = {
