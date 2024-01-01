@@ -11,7 +11,7 @@
 #     homeDirectory = "/home/enzo";
 #   };
   home.shellAliases = {
-    ls = "ls";
+    ls = "${pkgs.eza}/bin/eza";
   };
   home.packages = (with pkgs; [
 oscclip    
