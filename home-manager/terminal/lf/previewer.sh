@@ -74,7 +74,7 @@ esac
 
 case "$(file -Lb --mime-type -- "$FILE")" in
   text/*|application/json|application/csv)
-    bat "$FILE"
+    bat --plain --color always "$FILE"
     ;;
   */pdf)
     cache="$(hash "$FILE")"

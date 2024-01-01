@@ -1,7 +1,7 @@
 { pkgs, ... }: 
 let
-  cleaner = pkgs.writeShellScriptBin "cleaner"
-    (builtins.readFile ./cleaner.sh);
+  #cleaner = pkgs.writeShellScriptBin "cleaner"
+  #  (builtins.readFile ./cleaner.sh);
 
   previewer = pkgs.writeShellScriptBin "previewer"
     (builtins.readFile ./previewer.sh);
@@ -181,7 +181,7 @@ programs.lf = {
   };
 
   previewer.source = "${previewer}/bin/previewer";
-  extraConfig = "set cleaner ${cleaner}/bin/cleaner";
+  #extraConfig = "set cleaner ${cleaner}/bin/cleaner";
 };
 }
 
