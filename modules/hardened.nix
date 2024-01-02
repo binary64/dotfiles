@@ -1,13 +1,11 @@
 # This preset adds additional hardening settings on top of the
 # default ./hardened.nix preset.
 # These settings trade even more functionality and performance for increased security.
-
 # This preset enables usbguard. Use `services.usbguard.rules` to whitelist
 # select devices.
 #
 # See madaidan's Linux Hardening Guide for detailed explanations:
 # https://madaidans-insecurities.github.io/guides/linux-hardening.html
-
 {
   boot.kernel.sysctl = {
     # Prevent boot console kernel log information leaks
@@ -88,7 +86,8 @@
 
     # These parameters prevent information leaks during boot and must be used
     # in combination with the kernel.printk
-    "quiet" "loglevel=0"
+    "quiet"
+    "loglevel=0"
   ];
 
   boot.blacklistedKernelModules = [

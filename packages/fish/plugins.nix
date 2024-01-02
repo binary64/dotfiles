@@ -1,17 +1,16 @@
-{ lib, pkgs }:
-
-let
+{
+  lib,
+  pkgs,
+}: let
   bobthefish = {
     name = "theme-bobthefish";
     src = pkgs.fish-bobthefish-theme;
   };
-
   #keytool-completions = {
   #  name = "keytool-completions";
   #  src = pkgs.fish-keytool-completions;
   #};
-in
-{
+in {
   #completions = {
   #  keytool = lib.readFile "${keytool-completions.src}/completions/keytool.fish";
   #};

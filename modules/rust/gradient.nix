@@ -1,8 +1,10 @@
-{ config, pkgs, lib, ... }:
-
-with lib;
-
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib; let
   rustPlatform = pkgs.rustPlatform;
 
   gradient = rustPlatform.buildRustPackage rec {
@@ -24,11 +26,9 @@ let
       description = "A command-line tool to generate color gradients";
       homepage = "https://github.com/mazznoer/gradient-rs";
       license = licenses.mit;
-      maintainers = with maintainers; [ ]; # Add maintainers here
+      maintainers = with maintainers; []; # Add maintainers here
     };
   };
-in
-{
-  environment.systemPackages = [ gradient ];
+in {
+  environment.systemPackages = [gradient];
 }
-

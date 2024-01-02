@@ -1,20 +1,19 @@
-{ pkgs, ...}: {
-
+{pkgs, ...}: {
   imports = [
     ./desktop
     ./terminal
     ../packages/fish
   ];
 
-#   home = {
-#     username = "enzo";
-#     homeDirectory = "/home/enzo";
-#   };
+  #   home = {
+  #     username = "enzo";
+  #     homeDirectory = "/home/enzo";
+  #   };
   #home.shellAliases = {
   #  ls = "${pkgs.eza}/bin/eza";
   #};
-  home.packages = (with pkgs; [
-oscclip    
+  home.packages = with pkgs; [
+    oscclip
     #User Apps
     #celluloid
     librewolf
@@ -27,7 +26,6 @@ oscclip
 
     # discord
     # betterdiscord-installer
-    
 
     #utils
     ranger
@@ -42,7 +40,7 @@ oscclip
     #pavucontrol
     sqlite
 
-    #misc 
+    #misc
     #cava
     #neovim
     nano
@@ -58,18 +56,17 @@ oscclip
     eza
     btop
     tokyo-night-gtk
+  ];
 
-  ]);
+  #   dconf.settings = {
+  #     "org/gnome/desktop/interface" = {
+  #       color-scheme = "prefer-dark";
+  #     };
 
-#   dconf.settings = {
-#     "org/gnome/desktop/interface" = {
-#       color-scheme = "prefer-dark";
-#     };
-
-#     "org/gnome/shell/extensions/user-theme" = {
-#       name = "Tokyonight-Dark-B-LB";
-#     };
-#   };
+  #     "org/gnome/shell/extensions/user-theme" = {
+  #       name = "Tokyonight-Dark-B-LB";
+  #     };
+  #   };
 
   #programs.home-manager.enable = true;
 

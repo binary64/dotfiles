@@ -1,14 +1,17 @@
-{ inputs, lib, pkgs, ... }:
-
-with lib;
 {
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; {
   #imports = [ ./tmux.nix ];
 
   time.timeZone = mkDefault "Europe/London";
   i18n.defaultLocale = mkDefault "en_GB.UTF-8";
   console.keyMap = "uk";
   hardware.opengl.enable = true;
-  environment.shells = with pkgs; [ bashInteractive fish ];
+  environment.shells = with pkgs; [bashInteractive fish];
   environment.systemPackages = with pkgs; [
     cachix
   ];
@@ -24,8 +27,8 @@ with lib;
   #  nodePackages.pnpm
   #];
 
-    #programs.steam.enable = true;
+  #programs.steam.enable = true;
 
-    # better for steam proton games
-    systemd.extraConfig = "DefaultLimitNOFILE=1048576";
-  }
+  # better for steam proton games
+  systemd.extraConfig = "DefaultLimitNOFILE=1048576";
+}
