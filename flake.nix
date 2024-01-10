@@ -31,7 +31,7 @@
 
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     # Fish plugins
     fish-bobthefish-theme = {
       url = github:gvolpe/theme-bobthefish;
@@ -55,7 +55,7 @@
 
   outputs = inputs @ {
     self,
-    nixpkgs,nixvim,
+    nixpkgs,
     unstable,
     hyprland,
     nix-index-database,
@@ -109,7 +109,6 @@
       modules = [
         hyprland.homeManagerModules.default
         nix-index-database.hmModules.nix-index
-        nixvim.homeManagerModules.nixvim
       ];
     };
 
