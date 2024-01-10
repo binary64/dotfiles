@@ -76,14 +76,14 @@
     userEmail = "1680627+binary64@users.noreply.github.com";
   };
 
-#  programs = {
-#    nixvim = {
-#      enable = true;
+  programs = {
+    nixvim = {
+      enable = true;
 
-#      colorschemes.gruvbox.enable = true;
-#      plugins.lightline.enable = true;
-#    };
-#  };
+      colorschemes.gruvbox.enable = true;
+      plugins.lightline.enable = true;
+    };
+  };
 
   home.stateVersion = "23.11";
 }
