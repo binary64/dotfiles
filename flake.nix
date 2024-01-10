@@ -22,8 +22,16 @@
 
     # Extras
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    #<kickstart-nix.nvim>
 
+    # neovim
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-23.11";
+      # If you are not running an unstable channel of nixpkgs, select the corresponding branch of nixvim.
+      # url = "github:nix-community/nixvim/nixos-23.05";
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
     # Fish plugins
     fish-bobthefish-theme = {
       url = github:gvolpe/theme-bobthefish;
@@ -47,7 +55,7 @@
 
   outputs = inputs @ {
     self,
-    nixpkgs,
+    nixpkgs,nixvim,
     unstable,
     hyprland,
     nix-index-database,
@@ -101,6 +109,7 @@
       modules = [
         hyprland.homeManagerModules.default
         nix-index-database.hmModules.nix-index
+        nixvim.homeManagerModules.nixvim
       ];
     };
 

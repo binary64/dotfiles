@@ -123,9 +123,6 @@
         "--preview-window 'right:border-left:50%:<40(right:border-left:50%:hidden)'"
       ];
     };
-    neovim = {
-      enable = true;
-    };
     tealdeer = {
       enable = true;
     };
