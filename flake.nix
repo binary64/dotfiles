@@ -102,7 +102,11 @@
       {dotfiles = import ./.;} // mapModulesRec ./modules import;
 
     nixosConfigurations =
-      mapHosts ./hosts {};
+      mapHosts ./hosts {
+        iso = (import ./lib/iso.nix {
+          inherit inputs lib pkgs modulesPath;
+        }).mkISO {};
+      };
 
     homeConfigurations."user" = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
