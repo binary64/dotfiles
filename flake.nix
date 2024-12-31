@@ -99,7 +99,7 @@
       mapModules ./packages (p: pkgs.callPackage p {}) // {
         iso = (lib.my.mkISO {
           inherit system pkgs lib inputs;
-        });
+        }).config.system.build.isoImage;
       };
 
     nixosModules =
