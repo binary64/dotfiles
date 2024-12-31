@@ -104,7 +104,7 @@
     nixosConfigurations =
       mapHosts ./hosts {
         iso = (import ./lib/iso.nix {
-          inherit inputs lib pkgs modulesPath;
+          inherit inputs lib pkgs;
         }).mkISO {};
       };
 

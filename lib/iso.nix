@@ -1,8 +1,8 @@
+# lib/iso.nix
 {
   inputs,
   lib,
   pkgs,
-  modulesPath,
   ...
 }: {
   mkISO = attrs @ {system ? "x86_64-linux", ...}:
@@ -10,14 +10,13 @@
       inherit system;
       specialArgs = {inherit lib inputs system;};
       modules = [
-        # Import installation-cd module
-        "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
-        
-        # Add disko
-        inputs.disko.nixosModules.disko
-        
         # Basic ISO configuration
-        {
+        ({ pkgs, lib, modulesPath, ... }: {
+          imports = [
+            # Import installation-cd module
+            "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"
+          ];
+          
           nixpkgs.pkgs = pkgs;
           
           # Enable flakes
@@ -43,7 +42,10 @@
           # ISO-specific settings
           isoImage.makeEfiBootable = true;
           isoImage.makeUsbBootable = true;
-        }
+        })
+        
+        # Add disko
+        inputs.disko.nixosModules.disko
       ];
     };
 }
