@@ -25,10 +25,10 @@ jobs:
 
       - name: Build ISO
         run: |
-          nix build .#nixosConfigurations.iso.config.system.build.isoImage
+          nix build .#iso
           
-      - name: Upload ISO artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: nixos-iso
-          path: result/iso/*.iso
+    #   - name: Upload ISO artifact
+    #     uses: actions/upload-artifact@v4
+    #     with:
+    #       name: nixos-iso
+    #       path: result/iso/*.iso
