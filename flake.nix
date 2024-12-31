@@ -108,6 +108,10 @@
         }).mkISO {};
       };
 
+    # Expose the ISO build as a package
+    packages.${system}.iso = self.nixosConfigurations.iso.config.system.build.isoImage;
+    packages.${system}.default = self.packages.${system}.iso;
+    
     homeConfigurations."user" = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
