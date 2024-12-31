@@ -13,6 +13,14 @@ in {
       inherit system;
       specialArgs = {inherit lib inputs system;};
       modules = [
+        # Add disko module
+        inputs.disko.nixosModules.disko
+        # Add installer config for disko
+        ({ config, lib, ... }: {
+          boot.initrd.systemd.enable = true;
+          disko.devices.disk.main.device = lib.mkDefault "/dev/sda";
+          boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
+        })
         {
           nixpkgs.pkgs = pkgs;
           networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
@@ -20,6 +28,11 @@ in {
         (filterAttrs (n: v: !elem n ["system"]) attrs)
         ../. # /default.nix
         (import path)
+        # Import host-specific disko config if it exists
+        (let diskoPath = path + "/disko.nix"; in
+          if pathExists diskoPath
+          then import diskoPath
+          else {})
       ];
     };
 

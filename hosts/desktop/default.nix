@@ -10,9 +10,6 @@
     ./disk-config.nix
   ];
 
-  # Use disko
-  #boot.loader.systemd-boot.enable = true;
-
   boot = {
     loader = {
       grub = {
