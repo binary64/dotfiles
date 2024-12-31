@@ -96,22 +96,22 @@
       mapModules ./overlays import;
 
     packages."${system}" =
-      mapModules ./packages (p: pkgs.callPackage p {});
+      mapModules ./packages (p: pkgs.callPackage p {}) // {
+        iso = (lib.my.mkISO {
+          inherit system pkgs lib inputs;
+        });
+      };
 
     nixosModules =
       {dotfiles = import ./.;} // mapModulesRec ./modules import;
 
     nixosConfigurations =
-      mapHosts ./hosts {
-        iso = (import ./lib/iso.nix {
-          inherit inputs lib pkgs;
-        }).mkISO {};
-      };
+      mapHosts ./hosts {};
 
     # Expose the ISO build as a package
     packages.${system}.iso = self.nixosConfigurations.iso.config.system.build.isoImage;
     packages.${system}.default = self.packages.${system}.iso;
-    
+
     homeConfigurations."user" = home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       modules = [
