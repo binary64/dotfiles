@@ -19,7 +19,7 @@ in {
         ({ config, lib, ... }: {
           boot.initrd.systemd.enable = true;
           disko.devices.disk.main.device = lib.mkDefault "/dev/sda";
-          boot.loader.efi.canTouchEfiVariables = lib.mkDefault true;
+          boot.loader.efi.canTouchEfiVariables = lib.mkDefault false;
         })
         {
           nixpkgs.pkgs = pkgs;
