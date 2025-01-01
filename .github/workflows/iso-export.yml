@@ -25,7 +25,7 @@ jobs:
 
       - name: Build ISO
         run: |
-          nix build .#iso
+          nix build .#desktop
           
     #   - name: Upload ISO artifact
     #     uses: actions/upload-artifact@v4
