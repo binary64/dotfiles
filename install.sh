@@ -168,7 +168,7 @@ chmod a-w /mnt/etc/zfs/zpool.cache
 chattr +i /mnt/etc/zfs/zpool.cache
 
 echo "Installing OS.."
-nixos-generate-config --root /mnt
+#nixos-generate-config --root /mnt
 
 # Ensure /mnt directory exists
 if [ ! -d /mnt ]; then
