@@ -16,7 +16,7 @@
   boot.extraModulePackages = [];
 
   fileSystems."/" =
-    { device = "rpool/nixos";
+    { device = lib.mkForce "rpool/nixos";
       fsType = lib.mkForce "zfs";
     };
 
