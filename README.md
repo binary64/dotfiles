@@ -1,20 +1,18 @@
 # My dotfiles
 
-Feel free to roast, install, or skip.
+This is a NixOS (with Flakes) repo.
 
 ## Quickstart
 
-```bash
-nix-shell -p git --run "git clone https://github.com/binary64/dotfiles ~/dotfiles"
-echo -n "123" >/tmp/cryptroot.key
-cd ~/dotfiles && bash ./install.sh
-sudo reboot now
-```
+1. Download NixOS minimal iso. Etch to a USB memory stick. Boot from it. You should enter into a nixos@nixos shell prompt.
+2. Run `git clone https://github.com/binary64/dotfiles` and `cd dotfiles`
+3. Run `sudo bash install.sh`
+4. Run `sudo nixos-install --root /mnt --flake ".#desktop" --no-root-passwd`
+5. Reboot: `sudo reboot now`
 
 ## Features
 
-- Home Manager with Flakes
-- tmux
+- zfs
 
 ## Wishlist
 
@@ -23,7 +21,6 @@ sudo reboot now
 - gnome
 - nerdfonts
 - neovim
-- Wayland
 - hyprland
 - lazygit
 - lf
