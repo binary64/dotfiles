@@ -18,7 +18,7 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.   #
 ###############################################################################
 
-set -euo pipefail
+set -euxo pipefail
 
 # Check for existence of `sudo` binary
 if ! command -v sudo &>/dev/null; then
