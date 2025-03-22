@@ -51,7 +51,7 @@
     };
 
   fileSystems."/boot/efis/efiboot0" =
-    { device = "/dev/disk/by-uuid/0ABE-3E53";
+    { device = "/dev/disk/by-label/EFI";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
