@@ -2,6 +2,7 @@
   inputs,
   lib,
   pkgs,
+  config,
   ...
 }:
 with lib; {
@@ -67,6 +68,6 @@ with lib; {
   '';
 
   boot.loader.grub.devices = [
-    /dev/sda
+    "/dev/sda"
   ];
 }

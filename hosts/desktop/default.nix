@@ -19,4 +19,5 @@
   #services.openssh.startWhenNeeded = true;
 
   networking.networkmanager.enable = true;
+  networking.hostId = "00000001";
 }

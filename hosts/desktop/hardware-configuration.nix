@@ -18,36 +18,45 @@
   fileSystems."/" =
     { device = lib.mkForce "rpool/nixos";
       fsType = lib.mkForce "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
+      neededForBoot = true;
     };
 
   fileSystems."/home" =
     { device = "rpool/nixos/home";
       fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/nix" =
     { device = "rpool/nixos/nix";
       fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/root" =
     { device = "rpool/nixos/root";
       fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/usr" =
     { device = "rpool/nixos/usr";
       fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/var" =
-    { device = "rpool/nixos/var";
-      fsType = "zfs";
+    { device = lib.mkForce "rpool/nixos/var";
+      fsType = lib.mkForce "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/boot" =
     { device = "rpool/nixos/boot";
       fsType = "zfs";
+      options = [ "zfsutil" "X-mount.mkdir" ];
+      neededForBoot = true;
     };
 
   fileSystems."/boot/efis/efiboot0" =
