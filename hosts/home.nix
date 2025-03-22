@@ -30,7 +30,7 @@ with lib; {
   #programs.steam.enable = true;
 
   # set a super secure initial root password
-  users.users.root.initialHashedPassword = "$6$nAffBk9Fxs.0J13A$S4e5cCSd.ITeYAZydUnfwo6eHXiYJuzbp3RPKHf8xtnP25V1Zk0eypKFeg0LXDTnJsfRv5O21TKMavcb3c9qE1"
+  users.users.root.initialHashedPassword = "$6$nAffBk9Fxs.0J13A$S4e5cCSd.ITeYAZydUnfwo6eHXiYJuzbp3RPKHf8xtnP25V1Zk0eypKFeg0LXDTnJsfRv5O21TKMavcb3c9qE1";
 
   # better for steam proton games
   systemd.extraConfig = "DefaultLimitNOFILE=1048576";
