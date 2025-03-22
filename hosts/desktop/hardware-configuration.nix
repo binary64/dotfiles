@@ -17,7 +17,7 @@
 
   fileSystems."/" =
     { device = "rpool/nixos";
-      fsType = "zfs";
+      fsType = lib.mkForce "zfs";
     };
 
   fileSystems."/home" =
