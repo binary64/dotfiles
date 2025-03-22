@@ -176,6 +176,7 @@ if [ ! -d /mnt ]; then
 	exit 1
 fi
 
+mkdir -p /mnt/etc/nixos
 cp -r ./* /mnt/etc/nixos
 lsblk
 ls -al /mnt
