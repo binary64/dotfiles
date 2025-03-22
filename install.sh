@@ -179,3 +179,5 @@ fi
 cp -r ./* /mnt/etc/nixos
 lsblk
 ls -al /mnt
+
+echo "Now go fix your hardware-configuration.nix so that the efiboot uuid matches your new install."

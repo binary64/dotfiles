@@ -7,18 +7,7 @@
   imports = [
     ../home.nix
     ./hardware-configuration.nix
-    ./disko.nix
   ];
-
-  boot = {
-    loader = {
-      grub = {
-        devices = ["/dev/sda"];
-        efiSupport = true;
-        efiInstallAsRemovable = true;
-      };
-    };
-  };
 
   # Enable the OpenSSH server.
   services.openssh.enable = true;
