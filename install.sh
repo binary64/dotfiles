@@ -89,7 +89,7 @@ for d in ${DISK[*]}; do
 	partprobe "${d}"
 	sleep 2
 	mkswap -L ${PART_SWAP}fs${i} /dev/disk/by-partlabel/${PART_SWAP}${i}
-	swapon /dev/disk/by-partlabel/${PART_SWAP}${i}
+	#swapon /dev/disk/by-partlabel/${PART_SWAP}${i}
 	((i++)) || true
 done
 unset i d
@@ -111,7 +111,7 @@ zpool create \
 	-O mountpoint=none \
 	-O checksum=sha256 \
 	-R /mnt \
-	${ZFS_BOOT} "${ZFS_BOOT_VDEV}" /dev/disk/by-partlabel/${PART_BOOT}*
+	${ZFS_BOOT} "${ZFS_BOOT_VDEV:-}" /dev/disk/by-partlabel/${PART_BOOT}*
 
 # Create the root pool
 zpool create \
@@ -125,7 +125,7 @@ zpool create \
 	-O mountpoint=none \
 	-O checksum=edonr \
 	-R /mnt \
-	${ZFS_ROOT} "${ZFS_ROOT_VDEV}" /dev/disk/by-partlabel/${PART_ROOT}*
+	${ZFS_ROOT} "${ZFS_ROOT_VDEV:-}" /dev/disk/by-partlabel/${PART_ROOT}*
 
 # Create the boot dataset
 zfs create ${ZFS_BOOT}/${ZFS_ROOT_VOL}
