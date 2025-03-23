@@ -37,7 +37,6 @@ with lib; {
   systemd.extraConfig = "DefaultLimitNOFILE=1048576";
 
   boot.supportedFilesystems = [ "zfs" ];
-  networking.hostId = "$(head -c 8 /etc/machine-id)";
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   boot.zfs.devNodes = "/dev/disk/by-partlabel";
 
