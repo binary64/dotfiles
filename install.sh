@@ -319,11 +319,8 @@ fi
 
 set +x
 
-echo "Now do this (preferably in another shell, this will put out a lot of text):"
-echo "nixos-install -v --show-trace --no-root-passwd --root /mnt"
-echo "umount -Rl /mnt"
-echo "zpool export -a"
-echo "swapoff -a"
-echo "reboot"
-echo "Make note of these instructions because the nixos-install command will output a lot of text."
-
+nixos-install -v --show-trace --no-root-passwd --root /mnt
+umount -Rl /mnt
+zpool export -a
+swapoff -a
+reboot now
