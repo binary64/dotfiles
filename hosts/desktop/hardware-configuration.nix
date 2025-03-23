@@ -47,14 +47,14 @@
     };
 
   fileSystems."/var" =
-    { device = lib.mkForce "rpool/nixos/var";
-      fsType = lib.mkForce "zfs";
+    { device = "rpool/nixos/var";
+      fsType = "zfs";
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/boot" =
-    { device = "rpool/nixos/boot";
-      fsType = "zfs";
+    { device = lib.mkForce "rpool/nixos/boot";
+      fsType = lib.mkForce "zfs";
       options = [ "zfsutil" "X-mount.mkdir" ];
       neededForBoot = true;
     };
