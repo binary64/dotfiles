@@ -297,7 +297,7 @@ fi
 
 set +x
 
-exit 0
+#exit 0
 nixos-install -v --show-trace --no-root-passwd --root /mnt
 #exit 0
 umount -Rl /mnt
