@@ -34,7 +34,6 @@ DISK=(/dev/sda)
 # How to name the partitions. This will be visible in 'gdisk -l /dev/disk' and
 # in /dev/disk/by-partlabel.
 PART_MBR="bootcode"
-PART_BOOT="bpool"
 PART_SWAP="swap"
 PART_ROOT="rpool"
 
@@ -50,7 +49,6 @@ SWAPSIZE=2G
 #ZFS_ROOT_VDEV="mirror"
 
 # How to name the boot pool and root pool.
-ZFS_BOOT="bpool"
 ZFS_ROOT="rpool"
 
 # How to name the root volume in which nixos will be installed.
@@ -93,12 +91,15 @@ set -x
 i=0 SWAPDEVS=()
 for d in ${DISK[*]}
 do
+	umount ${d}2 || true
+	swapoff ${d}3 || true
+	
 	sgdisk --zap-all ${d}
 	partprobe ${d}
 	sleep 2
 	
 	sgdisk -a1 -n1:0:+100K -t1:EF02 -c 1:${PART_MBR}${i} ${d}
-	sgdisk -n2:1M:+4G -t2:EF00 -c 2:${PART_BOOT}${i} ${d}
+	sgdisk -n2:1M:+4G -t2:EF00 ${d}
 	sgdisk -n3:0:+${SWAPSIZE} -t3:8200 -c 3:${PART_SWAP}${i} ${d}
 	SWAPDEVS+=(${d}3)
 	sgdisk -n4:0:0 -t4:BF00 -c 4:${PART_ROOT}${i} ${d}
@@ -113,22 +114,6 @@ unset i d
 
 # Wait for a bit to let udev catch up and generate /dev/disk/by-partlabel.
 sleep 3s
-
-# Create the boot pool
-zpool create \
-	-f \
-	-o ashift=12 \
-	-o autotrim=on \
-	-O acltype=posixacl \
-	-O compression=lz4 \
-	-O devices=off \
-	-O normalization=formD \
-	-O relatime=on \
-	-O xattr=sa \
-	-O mountpoint=none \
-	-O checksum=sha256 \
-	-R /mnt \
-	${ZFS_BOOT} ${ZFS_BOOT_VDEV} /dev/disk/by-partlabel/${PART_BOOT}*
 
 # Create the root pool
 zpool create \
