@@ -52,13 +52,6 @@
       options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
-  fileSystems."/boot" =
-    { device = lib.mkForce "rpool/nixos/boot";
-      fsType = lib.mkForce "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-      neededForBoot = true;
-    };
-
   fileSystems."/boot/efis/efiboot0" =
     { device = "/dev/disk/by-label/EFI";
       fsType = "vfat";

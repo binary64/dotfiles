@@ -97,7 +97,7 @@ do
 	sgdisk --zap-all ${d}
 	sgdisk -a1 -n1:0:+100K -t1:EF02 -c 1:${PART_MBR}${i} ${d}
 	sgdisk -n2:1M:+1G -t2:EF00 -c 2:${PART_EFI}${i} ${d}
-	sgdisk -n3:0:+4G -t3:BE00 -c 3:${PART_BOOT}${i} ${d}
+	sgdisk -n3:0:+4G -t3:EF00 -c 3:${PART_BOOT}${i} ${d}
 	sgdisk -n4:0:+${SWAPSIZE} -t4:8200 -c 4:${PART_SWAP}${i} ${d}
 	SWAPDEVS+=(${d}4)
 	sgdisk -n5:0:0 -t5:BF00 -c 5:${PART_ROOT}${i} ${d}
@@ -116,7 +116,6 @@ sleep 3s
 # Create the boot pool
 zpool create \
 	-f \
-	-o compatibility=grub2 \
 	-o ashift=12 \
 	-o autotrim=on \
 	-O acltype=posixacl \
@@ -145,9 +144,6 @@ zpool create \
 	-R /mnt \
 	${ZFS_ROOT} ${ZFS_ROOT_VDEV} /dev/disk/by-partlabel/${PART_ROOT}*
 
-# Create the boot dataset
-zfs create ${ZFS_BOOT}/${ZFS_ROOT_VOL}
-
 # Create the root dataset
 zfs create -o mountpoint=/     ${ZFS_ROOT}/${ZFS_ROOT_VOL}
 
@@ -158,10 +154,6 @@ zfs create -o atime=off ${ZFS_ROOT}/${ZFS_ROOT_VOL}/nix
 zfs create ${ZFS_ROOT}/${ZFS_ROOT_VOL}/root
 zfs create ${ZFS_ROOT}/${ZFS_ROOT_VOL}/usr
 zfs create ${ZFS_ROOT}/${ZFS_ROOT_VOL}/var
-
-# Create datasets (subvolumes) in the boot dataset
-# This comes last because boot order matters
-zfs create -o mountpoint=/boot ${ZFS_BOOT}/${ZFS_ROOT_VOL}/boot
 
 # Make empty snapshots of impermanent volumes
 if (( $IMPERMANENCE ))
@@ -210,7 +202,7 @@ tee -a ${ZFSCFG} <<EOF
 
 {
   boot.supportedFilesystems = [ "zfs" ];
-  networking.hostId = "$(head -c 8 /etc/machine-id)";
+  networking.hostId = "00000001";
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   boot.zfs.devNodes = "/dev/disk/by-partlabel";
 EOF
