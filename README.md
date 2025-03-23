@@ -10,9 +10,8 @@ This is a NixOS (with Flakes) repo.
 4. Reboot: `sudo reboot now`
 5. After rebooting it will boot from the internal disk (sda). Login as root / 123.
 6. `cd /etc/nixos` and `rm ./*`
-7. Run `nix-shell -p git`
-8. Now run `git clone https://github.com/binary64/dotfiles .`
-9. Finally, `nixos-rebuild switch --flake .#desktop`
+7. Now run `git clone https://github.com/binary64/dotfiles .`
+8. Finally, `nixos-rebuild switch --flake .#desktop`
 
 ## Features
 
