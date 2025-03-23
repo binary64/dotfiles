@@ -181,4 +181,13 @@ cp -r ./* /mnt/etc/nixos
 lsblk
 ls -al /mnt
 
-nixos-install --root /mnt --flake ".#desktop" --no-root-passwd
+nixos-install --root /mnt --flake ".#${1:-desktop}" --no-root-passwd
+
+sleep 1
+umount -Rl /mnt
+sleep 1
+zpool export -a
+sleep 1
+swapoff -a || true
+sleep 1
+reboot now
