@@ -166,11 +166,11 @@ then
 fi
 
 for i in ${DISK}; do
- mkfs.vfat -n EFI "${i}"2
+ mkfs.vfat -n EFI "${i}2"
 done
 
 for i in ${DISK}; do
- mount -t vfat -o fmask=0077,dmask=0077,iocharset=iso8859-1,X-mount.mkdir "${i}"2 "${MNT}"/boot
+ mount -t vfat -o fmask=0077,dmask=0077,iocharset=iso8859-1,X-mount.mkdir "${i}2" /mnt/boot/efi
  break
 done
 
@@ -218,37 +218,11 @@ sed -i '/boot.loader/d' ${MAINCFG}
 # recognize them when we edit the config later
 sed -i -e 's;^  \(services.xserver\);  #\1;' ${MAINCFG}
 
-tee -a ${ZFSCFG} <<-'EOF'
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  boot.loader.efi.canTouchEfiVariables = false;
-  boot.loader.generationsDir.copyKernels = true;
-  boot.loader.grub.efiInstallAsRemovable = true;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.copyKernels = true;
-  boot.loader.grub.efiSupport = true;
-  boot.loader.grub.zfsSupport = true;
-
-  boot.loader.grub.extraPrepareConfig = ''
-    mkdir -p /boot/efi
-    mount /boot/efi
-  '';
-
-  boot.loader.grub.extraInstallCommands = ''
-    ESP_MIRROR=$(mktemp -d)
-    cp -r /boot/efi/EFI $ESP_MIRROR
-    rm -rf $ESP_MIRROR
-  '';
-
-  boot.loader.grub.devices = [
-EOF
-
-for d in ${DISK[*]}; do
-  printf "    \"${d}\"\n" >>${ZFSCFG}
-done
-
+# Configure systemd-boot
 tee -a ${ZFSCFG} <<EOF
-  ];
-
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.efi.efiSysMountPoint = "/boot/efi";
 EOF
 
 sed -i 's|fsType = "zfs";|fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];|g' ${HWCFG}
@@ -297,9 +271,8 @@ fi
 
 set +x
 
-#exit 0
 nixos-install -v --show-trace --no-root-passwd --root /mnt
-#exit 0
+
 umount -Rl /mnt
 zpool export -a
 swapoff -a
