@@ -115,6 +115,7 @@ sleep 3s
 
 # Create the boot pool
 zpool create \
+	-f \
 	-o compatibility=grub2 \
 	-o ashift=12 \
 	-o autotrim=on \
@@ -131,6 +132,7 @@ zpool create \
 
 # Create the root pool
 zpool create \
+	-f \
 	-o ashift=12 \
 	-o autotrim=on \
 	-O acltype=posixacl \
