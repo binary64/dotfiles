@@ -101,7 +101,7 @@ do
 	sgdisk -n2:1M:+4G -t2:EF00 -c 2:${PART_BOOT}${i} ${d}
 	sgdisk -n3:0:+${SWAPSIZE} -t3:8200 -c 3:${PART_SWAP}${i} ${d}
 	SWAPDEVS+=(${d}3)
-	sgdisk -n4:0:0 -t5:BF00 -c 4:${PART_ROOT}${i} ${d}
+	sgdisk -n4:0:0 -t4:BF00 -c 4:${PART_ROOT}${i} ${d}
 
 	partprobe ${d}
 	sleep 2
