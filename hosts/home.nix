@@ -58,7 +58,9 @@ with lib; {
   '';
 
   boot.loader.grub.extraInstallCommands = ''
-    ESP_MIRROR=$(mktemp -d)
+    ESP_MIRROR=/tmp/ESP_MIRROR
+    rm -rf $ESP_MIRROR
+    mkdir $ESP_MIRROR
     cp -r /boot/efi/EFI $ESP_MIRROR
     for i in /boot/efis/*; do
       cp -r $ESP_MIRROR/EFI $i
