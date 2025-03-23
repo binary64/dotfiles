@@ -166,11 +166,11 @@ then
 fi
 
 for i in ${DISK}; do
- mkfs.vfat -n EFI "${i}"1
+ mkfs.vfat -n EFI "${i}"2
 done
 
 for i in ${DISK}; do
- mount -t vfat -o fmask=0077,dmask=0077,iocharset=iso8859-1,X-mount.mkdir "${i}"1 "${MNT}"/boot
+ mount -t vfat -o fmask=0077,dmask=0077,iocharset=iso8859-1,X-mount.mkdir "${i}"2 "${MNT}"/boot
  break
 done
 
@@ -229,9 +229,6 @@ tee -a ${ZFSCFG} <<-'EOF'
   boot.loader.grub.zfsSupport = true;
 
   boot.loader.grub.extraPrepareConfig = ''
-    mkdir -p /boot/efis
-    for i in  /boot/efis/*; do mount $i ; done
-
     mkdir -p /boot/efi
     mount /boot/efi
   '';
@@ -239,9 +236,6 @@ tee -a ${ZFSCFG} <<-'EOF'
   boot.loader.grub.extraInstallCommands = ''
     ESP_MIRROR=$(mktemp -d)
     cp -r /boot/efi/EFI $ESP_MIRROR
-    for i in /boot/efis/*; do
-      cp -r $ESP_MIRROR/EFI $i
-    done
     rm -rf $ESP_MIRROR
   '';
 
