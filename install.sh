@@ -34,7 +34,6 @@ DISK=(/dev/sda)
 # How to name the partitions. This will be visible in 'gdisk -l /dev/disk' and
 # in /dev/disk/by-partlabel.
 PART_MBR="bootcode"
-PART_EFI="efiboot"
 PART_BOOT="bpool"
 PART_SWAP="swap"
 PART_ROOT="rpool"
@@ -95,12 +94,14 @@ i=0 SWAPDEVS=()
 for d in ${DISK[*]}
 do
 	sgdisk --zap-all ${d}
+	partprobe ${d}
+	sleep 2
+	
 	sgdisk -a1 -n1:0:+100K -t1:EF02 -c 1:${PART_MBR}${i} ${d}
-	sgdisk -n2:1M:+1G -t2:EF00 -c 2:${PART_EFI}${i} ${d}
-	sgdisk -n3:0:+4G -t3:EF00 -c 3:${PART_BOOT}${i} ${d}
-	sgdisk -n4:0:+${SWAPSIZE} -t4:8200 -c 4:${PART_SWAP}${i} ${d}
-	SWAPDEVS+=(${d}4)
-	sgdisk -n5:0:0 -t5:BF00 -c 5:${PART_ROOT}${i} ${d}
+	sgdisk -n2:1M:+4G -t2:EF00 -c 2:${PART_BOOT}${i} ${d}
+	sgdisk -n3:0:+${SWAPSIZE} -t3:8200 -c 3:${PART_SWAP}${i} ${d}
+	SWAPDEVS+=(${d}3)
+	sgdisk -n4:0:0 -t5:BF00 -c 4:${PART_ROOT}${i} ${d}
 
 	partprobe ${d}
 	sleep 2
@@ -164,16 +165,14 @@ then
 	done
 fi
 
-# Create, mount and populate the efi partitions
-i=0
-for d in ${DISK[*]}
-do
-	mkfs.vfat -n EFI /dev/disk/by-partlabel/${PART_EFI}${i}
-	mkdir -p /mnt/boot/efis/${PART_EFI}${i}
-	mount -t vfat /dev/disk/by-partlabel/${PART_EFI}${i} /mnt/boot/efis/${PART_EFI}${i}
-	(( i++ )) || true
+for i in ${DISK}; do
+ mkfs.vfat -n EFI "${i}"-part1
 done
-unset i d
+
+for i in ${DISK}; do
+ mount -t vfat -o fmask=0077,dmask=0077,iocharset=iso8859-1,X-mount.mkdir "${i}"-part1 "${MNT}"/boot
+ break
+done
 
 # Mount the first drive's efi partition to /mnt/boot/efi
 mkdir /mnt/boot/efi
