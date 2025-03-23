@@ -267,9 +267,6 @@ sed -i 's|fsType = "zfs";|fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" 
 ADDNR=$(awk '/^  fileSystems."\/" =$/ {print NR+3}' ${HWCFG})
 sed -i "${ADDNR}i"' \      neededForBoot = true;' ${HWCFG}
 
-ADDNR=$(awk '/^  fileSystems."\/boot" =$/ {print NR+3}' ${HWCFG})
-sed -i "${ADDNR}i"' \      neededForBoot = true;' ${HWCFG}
-
 if (( $IMPERMANENCE ))
 then
 	# Of course we want to keep the config files after the initial
