@@ -166,11 +166,11 @@ then
 fi
 
 for i in ${DISK}; do
- mkfs.vfat -n EFI "${i}"-part1
+ mkfs.vfat -n EFI "${i}"1
 done
 
 for i in ${DISK}; do
- mount -t vfat -o fmask=0077,dmask=0077,iocharset=iso8859-1,X-mount.mkdir "${i}"-part1 "${MNT}"/boot
+ mount -t vfat -o fmask=0077,dmask=0077,iocharset=iso8859-1,X-mount.mkdir "${i}"1 "${MNT}"/boot
  break
 done
 
