@@ -59,6 +59,7 @@ with lib; {
 
   boot.loader.grub.extraInstallCommands = ''
     ESP_MIRROR=/tmp/ESP_MIRROR
+    export PATH=${pkgs.coreutils}/bin:$PATH
     rm -rf $ESP_MIRROR
     mkdir $ESP_MIRROR
     cp -r /boot/efi/EFI $ESP_MIRROR
