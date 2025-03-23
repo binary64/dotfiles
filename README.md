@@ -7,8 +7,12 @@ This is a NixOS (with Flakes) repo.
 1. Download NixOS minimal iso. Etch to a USB memory stick. Boot from it. You should enter into a nixos@nixos shell prompt.
 2. Run `git clone https://github.com/binary64/dotfiles` and `cd dotfiles`
 3. Run `sudo bash install.sh`
-4. Run `sudo nixos-install --root /mnt --flake ".#desktop" --no-root-passwd`
-5. Reboot: `sudo reboot now`
+4. Reboot: `sudo reboot now`
+5. After rebooting it will boot from the internal disk (sda). Login as root / 123.
+6. `cd /etc/nixos` and `rm ./*`
+7. Run `nix-shell -p git`
+8. Now run `git clone https://github.com/binary64/dotfiles .`
+9. Finally, `nixos-rebuild switch --flake .#desktop`
 
 ## Features
 
