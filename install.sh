@@ -174,10 +174,6 @@ for i in ${DISK}; do
  break
 done
 
-# Mount the first drive's efi partition to /mnt/boot/efi
-mkdir /mnt/boot/efi
-mount -t vfat /dev/disk/by-partlabel/${PART_EFI}0 /mnt/boot/efi
-
 # Make sure we won't trip over zpool.cache later
 mkdir -p /mnt/etc/zfs/
 rm -f /mnt/etc/zfs/zpool.cache
