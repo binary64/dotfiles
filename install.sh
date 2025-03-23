@@ -320,6 +320,7 @@ fi
 set +x
 
 nixos-install -v --show-trace --no-root-passwd --root /mnt
+exit 0
 umount -Rl /mnt
 zpool export -a
 swapoff -a
