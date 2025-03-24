@@ -9,7 +9,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ./disko-config.nix
+    ./disko.nix
     ./hardware-configuration.nix
     ../home.nix
 
