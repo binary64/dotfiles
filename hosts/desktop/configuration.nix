@@ -9,10 +9,7 @@
 {
   imports = [
     # Include the results of the hardware scan.
-    ./disko.nix
     ./hardware-configuration.nix
-
-    inputs.disko.nixosModules.disko
   ];
 
   networking.hostName = "desktop";
