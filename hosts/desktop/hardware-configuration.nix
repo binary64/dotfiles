@@ -4,65 +4,50 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
 }: {
-  imports = [];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
-  boot.initrd.availableKernelModules = ["ata_piix" "mptspi" "uhci_hcd" "ehci_pci" "ahci" "sd_mod" "sr_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = [];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "nvme"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
+  
+  fileSystems."/" = {
+    device = "rpool/nixos/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/" =
-    { device = lib.mkForce "rpool/nixos";
-      fsType = lib.mkForce "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-      neededForBoot = true;
-    };
+  fileSystems."/home" = {
+    device = "rpool/nixos/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "rpool/nixos/home";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-label/EFI";
+    fsType = "vfat";
+  };
 
-  fileSystems."/nix" =
-    { device = "rpool/nixos/nix";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/var/lib" = {
+    device = "rpool/nixos/var/lib";
+    fsType = "zfs";
+  };
 
-  fileSystems."/root" =
-    { device = "rpool/nixos/root";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
+  fileSystems."/var/log" = {
+    device = "rpool/nixos/var/log";
+    fsType = "zfs";
+  };
 
-  fileSystems."/usr" =
-    { device = "rpool/nixos/usr";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/var" =
-    { device = "rpool/nixos/var";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/boot/efis/efiboot0" =
-    { device = "/dev/disk/by-label/EFI";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
-
-  fileSystems."/boot/efi" =
-    { device = "/boot/efis/efiboot0";
-      fsType = "none";
-      options = [ "bind" ];
-    };
+  fileSystems."/var/lib/containers/storage/volumes" = {
+    device = "rpool/nixos/var/lib/containers/storage/volumes";
+    fsType = "zfs";
+  };
 
   swapDevices = [ ];
 
@@ -71,7 +56,10 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.ens33.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp0s31f6.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wwan0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
