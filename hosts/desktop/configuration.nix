@@ -11,7 +11,6 @@
     # Include the results of the hardware scan.
     ./disko.nix
     ./hardware-configuration.nix
-    ../home.nix
 
     inputs.disko.nixosModules.disko
   ];
@@ -22,6 +21,10 @@
   users.users.root = {
     initialPassword = "123";
   };
+
+  time.timeZone = mkDefault "Europe/London";
+  i18n.defaultLocale = mkDefault "en_GB.UTF-8";
+  console.keyMap = "uk";
 
   system.stateVersion = "23.11";
 }
