@@ -1,7 +1,9 @@
 #!/bin bash
 set -xeuo pipefail
 
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount hosts/desktop/disko.nix
+#sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount hosts/desktop/disko.nix
+
+cd hosts/desktop
 
 nixos-install --show-trace --no-root-passwd --root /mnt
 
