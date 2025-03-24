@@ -19,6 +19,17 @@
     initialPassword = "123";
   };
 
+  boot = {
+    loader = {
+      grub = {
+        enable = mkDefault true;
+        device = mkDefault "/dev/sda";
+        useOSProber = mkDefault false;
+      };
+      systemd-boot.enable = mkDefault false;
+    };
+  };
+  
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
   console.keyMap = "uk";
