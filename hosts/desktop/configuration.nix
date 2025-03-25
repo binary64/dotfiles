@@ -7,12 +7,41 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix ./zfs.nix
+      ./hardware-configuration.nix
     ];
 
   nix.settings.experimental-features = [
     "pipe-operators" "nix-command" "flakes"
   ] ;
+
+  boot.supportedFilesystems = [ "zfs" ];
+  networking.hostId = "d1a52b06";
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  boot.zfs.devNodes = "/dev/disk/by-partlabel";
+  
+  boot.loader.efi.efiSysMountPoint = "/boot";
+  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.generationsDir.copyKernels = true;
+  
+  # GRUB configuration
+  boot.loader.grub.enable = true;
+  boot.loader.grub.copyKernels = true;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.zfsSupport = true;
+  boot.loader.grub.efiInstallAsRemovable = true;
+  boot.loader.grub.devices = [ "/dev/sda" ];
+  
+  boot.loader.grub.extraPrepareConfig = ''
+    mkdir -p /boot
+    mount /dev/disk/by-label/BOOT /boot
+  '';
+
+  boot.loader.grub.extraInstallCommands = ''
+    ${pkgs.coreutils}/bin/mkdir -p /boot/EFI
+  '';
+
+  # Initial root password
+  users.users.root.initialPassword = "123";
 
   # Define on which hard drive you want to install Grub.
 
@@ -61,10 +90,10 @@
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.user = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-  };
+  # users.users.user = {
+  #   isNormalUser = true;
+  #   extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+  # };
 
   # programs.firefox.enable = true;
 
@@ -72,7 +101,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget curl htop git
+    wget curl htop git coreutils
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
