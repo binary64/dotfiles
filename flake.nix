@@ -8,9 +8,10 @@
     stylix.url = "github:danth/stylix";
   };
 
-  imports = [ ./home.nix ];
 
   outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: {
+    imports = [ ./home.nix ];
+
     nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
