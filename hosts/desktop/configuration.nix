@@ -29,7 +29,7 @@
   boot.loader.grub.efiSupport = true;
   boot.loader.grub.zfsSupport = true;
   boot.loader.grub.efiInstallAsRemovable = true;
-  boot.loader.grub.devices = [ "/dev/sda" ];
+  boot.loader.grub.device = "nodev";
   
   boot.loader.grub.extraPrepareConfig = ''
     mkdir -p /boot
