@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    ./desktop
     ./hermes
     ./fatalis
     ./zorah
