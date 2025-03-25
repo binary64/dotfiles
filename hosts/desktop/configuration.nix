@@ -10,7 +10,7 @@
       ./hardware-configuration.nix ./zfs.nix
     ];
 
-  nix.settings.experimental-features = [ "flakes" ] ;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ] ;
 
   # Define on which hard drive you want to install Grub.
 
