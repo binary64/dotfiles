@@ -1,59 +1,19 @@
 {
-  outputs =
-    inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
-      {
-        lib,
-        config,
-        ...
-      }:
-      {
-        imports = [
-          ./packages
-          ./misc/lib
-          ./hosts
-        ];
-
-        flake = {
-          nixosModules = config.flake.lib.dirToAttrs ./modules/nixos;
-        };
-
-        systems = [
-          "x86_64-linux"
-          "aarch64-linux"
-        ];
-
-        perSystem =
-          {
-            pkgs,
-            config,
-            ...
-          }:
-          {
-            devShells.default =
-              with pkgs;
-              mkShellNoCC {
-                packages = [
-                  lua-language-server
-                  config.packages.stylua
-                  taplo
-                ];
-              };
-          };
-      }
-    );
+  description = "A simple NixOS flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-    };
-
-    nix-common = {
-      url = "github:viperML/nix-common";
-    };
-    
+    # NixOS official package source, using the nixos-24.11 branch here
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
   };
 
+  outputs = { self, nixpkgs, ... }@inputs: {
+    nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        # Import the previous configuration.nix we used,
+        # so the old configuration file still takes effect
+        ./hosts/desktop/configuration.nix
+      ];
+    };
+  };
 }
