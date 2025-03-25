@@ -15,6 +15,7 @@
                 format = "vfat";
                 mountpoint = "/boot";
                 mountOptions = [ "nofail" ];
+                extraArgs = [ "-n" "BOOT" ];
               };
             };
             zfs = {
