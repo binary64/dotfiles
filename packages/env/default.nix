@@ -24,7 +24,7 @@
   dogdns,
   git,
   difftastic,
-  elfutils-cli,
+  #elfutils-cli,
   lurk,
   fq,
   jq,
