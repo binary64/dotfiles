@@ -6,6 +6,7 @@
   users.users.user = {
     uid = 10000;
     home = "/var/home/user";
+    password = "123";
   };
 
   systemd.tmpfiles.rules = [

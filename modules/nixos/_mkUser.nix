@@ -32,7 +32,6 @@ in
       "dialout"
     ];
     openssh.authorizedKeys.keys = [ ];
-    hashedPasswordFile = "/var/lib/secrets/users.passwd";
     shell = "/run/current-system/sw/bin/fish";
   };
 
