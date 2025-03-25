@@ -141,7 +141,7 @@
 
   fonts.packages = [
     pkgs.roboto
-    self'.packages.iosevka
+    #self'.packages.iosevka
     # (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     pkgs.nerd-fonts.symbols-only
     pkgs.corefonts
@@ -176,10 +176,10 @@
     '';
     hwRender = true;
     fonts = [
-      {
-        name = "iosevka-normal Semibold";
-        package = self'.packages.iosevka;
-      }
+      # {
+      #   name = "iosevka-normal Semibold";
+      #   package = self'.packages.iosevka;
+      # }
       {
         name = "Symbols Nerd Font";
         package = pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; };
