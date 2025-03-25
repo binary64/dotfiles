@@ -3,7 +3,7 @@
 {
   boot.supportedFilesystems = [ "zfs" ];
   networking.hostId = "d1a52b06";
-  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
   boot.zfs.devNodes = "/dev/disk/by-partlabel";
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.loader.efi.canTouchEfiVariables = false;
