@@ -7,7 +7,7 @@
   ...
 }:
 {
-  imports = [ ./swap.nix ];
+  imports = [ ];
 
   # broken
   services.envfs.enable = lib.mkForce false;
