@@ -61,7 +61,7 @@ ZFS_ROOT="rpool"
 ZFS_ROOT_VOL="nixos"
 
 # Generate a root password with mkpasswd -m SHA-512
-ROOTPW=''
+ROOTPW='123'
 
 # Do you want impermanence? In that case set this to 1. Not yes, not hai, 1.
 IMPERMANENCE=0
@@ -302,7 +302,7 @@ EOF
 fi
 
 tee -a ${ZFSCFG} <<EOF
-users.users.root.initialHashedPassword = "${ROOTPW}";
+users.users.root.initialPassword = "${ROOTPW}";
 
 }
 EOF
