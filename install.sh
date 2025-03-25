@@ -5,7 +5,7 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 sleep 3
 
 sudo mkdir -p /mnt/etc/nixos
-sudo cp hosts/desktop/configuration.nix /mnt/etc/nixos/
+sudo cp -r . /mnt/etc/nixos/
 
 sudo nixos-generate-config --root /mnt
 
