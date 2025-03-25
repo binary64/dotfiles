@@ -7,6 +7,7 @@
 {
   imports = [
     ./desktop
+    ./laptop
   ];
 
   _module.args.mkNixos =
