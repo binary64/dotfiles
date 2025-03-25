@@ -1,5 +1,5 @@
 {
   extra-experimental-features = [
-    "pipe-operators"
+    "pipe-operators" "nix-command" "flakes"
   ];
 }
