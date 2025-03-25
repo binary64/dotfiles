@@ -2,8 +2,10 @@
   description = "A simple NixOS flake";
 
   inputs = {
-    # NixOS official package source, using the nixos-24.11 branch here
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    home-manager.url = "github:nix-community/home-manager";
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
@@ -14,6 +16,10 @@
         # so the old configuration file still takes effect
         ./hosts/desktop/configuration.nix
       ];
+    };
+    homeConfigurations."user" = home-manager.lib.homeManagerConfiguration {
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      modules = [ stylix.homeManagerModules.stylix ./home.nix ];
     };
   };
 }
