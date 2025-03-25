@@ -8,7 +8,6 @@
   imports = [
     ./desktop
     ./laptop
-    (import ../modules/nixos/_mkUser.nix "user")
   ];
 
   _module.args.mkNixos =

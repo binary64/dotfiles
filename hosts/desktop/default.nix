@@ -17,7 +17,7 @@ in {
       # nixosModules.tmpfs
       # nixosModules.tpm2
       # nixosModules.user-ayats
-      # nixosModules.user-soch
+      nixosModules.user-user
       # nixosModules.yubikey
 
       #-- Environment
