@@ -3,7 +3,7 @@
     (import ./_mkUser.nix "user")
   ];
 
-  users.users.ayats = {
+  users.users.user = {
     uid = 10000;
     home = "/var/home/user";
   };
