@@ -10,58 +10,21 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "rpool/nixos";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
-      neededForBoot = true;
-    };
-
-  fileSystems."/home" =
-    { device = "rpool/nixos/home";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
+    { device = "zroot/root";
+      fsType = "zfs";
     };
 
   fileSystems."/nix" =
-    { device = "rpool/nixos/nix";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/root" =
-    { device = "rpool/nixos/root";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/usr" =
-    { device = "rpool/nixos/usr";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
-    };
-
-  fileSystems."/var" =
-    { device = "rpool/nixos/var";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
+    { device = "zroot/root/nix";
+      fsType = "zfs";
     };
 
   fileSystems."/boot" =
-    { device = "bpool/nixos/boot";
-      fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
-      neededForBoot = true;
-    };
-
-  fileSystems."/boot/efis/efiboot0" =
-    { device = "/dev/disk/by-label/EFI";
+    { device = "/dev/disk/by-label/BOOT";
       fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-      neededForBoot = true;
     };
 
-  fileSystems."/boot/efi" =
-    { device = "/boot/efis/efiboot0";
-      fsType = "none";
-      options = [ "bind" ];
-    };
-
-  swapDevices =
-    [
-    ];
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -70,5 +33,5 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.ens32.useDHCP = lib.mkDefault true;
 
-  # nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }
