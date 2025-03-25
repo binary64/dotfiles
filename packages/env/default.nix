@@ -32,7 +32,7 @@
   nixfmt-rfc-style,
   psmisc,
   nil,
-  yazi,
+  #yazi,
   httpie,
 }@args:
 symlinkJoin {
