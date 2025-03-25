@@ -151,7 +151,7 @@
   services.xserver = {
     enable = true;
     xkb = {
-      layout = "uk";
+      layout = "gb";
       options = "compose:rctrl";
     };
     excludePackages = [ pkgs.xterm ];
