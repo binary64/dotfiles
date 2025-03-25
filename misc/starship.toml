@@ -1,0 +1,182 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """\
+([\\[](fg:8) \
+$shlvl\
+$custom\
+$python\
+$package\
+$container\
+$terraform\
+$env_var\
+$singularity\
+$spack\
+[\\]](fg:8)
+)\
+([\\[](fg:8) $direnv$git_branch$git_commit$git_state$git_status$git_metrics[\\]](fg:8)
+)\
+([\\[](fg:8) \
+$username\
+$hostname\
+$status\
+$cmd_duration\
+[\\]](fg:8)
+)\
+$directory
+$character
+"""
+
+scan_timeout = 10
+add_newline = false
+
+[character]
+disabled = false
+success_symbol = "[\\$](bold)"
+error_symbol = "[\\$](bold)"
+
+[username]
+show_always = false
+format = "[$user@](fg:8)"
+
+[hostname]
+ssh_only = true
+format = "[$hostname](fg:8) "
+
+[directory]
+style = "bold cyan"
+read_only = " "
+truncate_to_repo = false
+#truncation_length = 0
+format = "[󰉋 $path]($style)([$read_only]($read_only_style))"
+#repo_root_style = "red"
+home_symbol = "~"
+#disabled = true
+truncation_length = 0
+
+[git_branch]
+format = " [$symbol$branch]($style) "
+symbol = ""
+only_attached = true
+
+[git_commit]
+style = "dimmed white"
+format = '[([$tag](bold purple) )$hash]($style) '
+tag_disabled = false
+tag_symbol = ""
+
+
+[git_status]
+format = "([$stashed$conflicted$deleted$renamed$modified$staged$untracked$ahead_behind]($style))"
+style = "bold cyan"
+up_to_date = ""
+conflicted = "=$count "
+ahead = "⇡$count "
+behind = "⇣$count "
+diverged = "⇕$count "
+untracked = "?$count "
+stashed = "\\(stash: $count\\) "
+modified = "!$count "
+staged = "+$count "
+renamed = "»$count "
+deleted = "✘$count "
+
+[git_metrics]
+disabled = false
+format = "([+$added]($added_style) )([-$deleted]($deleted_style) )"
+
+[python]
+format = "[${symbol}${pyenv_prefix}(${version} )(($virtualenv) )]($style)"
+symbol = " "
+
+[package]
+format = "[$symbol$version]($style) "
+symbol = "󰏗 "
+
+[cmd_duration]
+min_time = 60_000
+
+[status]
+disabled = false
+format = "[(✖ $status $common_meaning )](bold red)"
+
+[custom.nix]
+command = "nix-shell-info"
+when = "nix-shell-info"
+symbol = ""
+style = "bold cyan"
+format = "[$symbol]($style) [$output]($style) "
+os = "linux"
+
+[custom.module]
+when = "printenv LOADEDMODULES"
+os = "linux"
+command = "echo $LOADEDMODULES | sed 's#/[^:]*##g; s#:# #g'"
+symbol = "󱗜 mod:"
+style = "bold yellow"
+format = "[$symbol]($style) [$output]($style) "
+
+[env_var.HOVER]
+style = "white dimmed bold"
+format = "([$symbol $env_value]($style) )"
+variable = "HOVER"
+default = ""
+symbol = "󰼪 "
+
+[env_var.IN_NIX_SHELL]
+style = "blue bold"
+format = "([$symbol $env_value]($style) )"
+variable = "IN_NIX_SHELL"
+default = ""
+symbol = "󱄅"
+
+[env_var.GUIX_ENVIRONMENT]
+style = "yellow dimmed bold"
+format = "([$symbol $env_value]($style) )"
+variable = "GUIX_ENVIRONMENT"
+default = ""
+symbol = " "
+
+[env_var.GUIX_PACKAGE_PATH]
+style = "yellow dimmed bold"
+format = "([$symbol $env_value]($style) )"
+variable = "GUIX_PACKAGE_PATH"
+default = ""
+symbol = " "
+
+[env_var.SLURM_JOB_UID]
+style = "blue bold"
+format = "([$symbol $env_value]($style) )"
+symbol = " slurm"
+variable = "SLURM_JOB_UID"
+default = ""
+
+
+[singularity]
+style = "bold dimmed blue"
+format = "[$symbol$env]($style) "
+symbol = " "
+
+[env_var.OAR_JOBID]
+style = "blue bold"
+format = "([$symbol $env_value]($style) )"
+symbol = " oar"
+variable = "OAR_JOBID"
+default = ""
+
+[direnv]
+format = "($loaded )"
+loaded_msg = "\u001B[32m󰴉 \u001B[0m"
+unloaded_msg = "\u001B[31m󰴉 \u001B[0m"
+disabled = false
+
+[shlvl]
+repeat = true
+disabled = false
+symbol = "↕"
+format ="[$symbol]($style)  "
+repeat_offset = 1
+
+[spack]
+format = "[$symbol$environment]($style) "
+symbol = " "
+
