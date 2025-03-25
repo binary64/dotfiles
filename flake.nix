@@ -8,6 +8,8 @@
     stylix.url = "github:danth/stylix";
   };
 
+  imports = [ ./home.nix ];
+
   outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: {
     nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
@@ -17,9 +19,6 @@
         ./hosts/desktop/configuration.nix
       ];
     };
-    homeConfigurations."user" = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-      modules = [ stylix.homeManagerModules.stylix ./home.nix ];
-    };
+    
   };
 }
