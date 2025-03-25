@@ -22,14 +22,14 @@
   boot = {
     loader = {
       grub = {
-        enable = mkDefault true;
-        device = mkDefault "/dev/sda";
-        useOSProber = mkDefault false;
+        enable = true;
+        device = "/dev/sda";
+        useOSProber = false;
       };
-      systemd-boot.enable = mkDefault false;
+      systemd-boot.enable = false;
     };
   };
-  
+
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.UTF-8";
   console.keyMap = "uk";
