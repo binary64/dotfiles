@@ -48,8 +48,8 @@
 
   fileSystems."/boot/efis/efiboot0" =
     { device = "/dev/disk/by-label/EFI";
-      fsType = "zfs";
-      options = [ "zfsutil" "X-mount.mkdir"  "fmask=0022" "dmask=0022" ];
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
       neededForBoot = true;
     };
 
