@@ -88,11 +88,6 @@ flake@{
               nix = flake.self.lib.versionGate pkgs.nixVersions.nix_2_26 pkgs.nix;
               nil = inputs'.nil.packages.default;
 
-              # manual overrides to auto callPackage
-              nix-index = callPackage ./nix-index {
-                database = inputs'.nix-index-database.packages.nix-index-database;
-                databaseDate = config.flake.lib.mkDate inputs.nix-index-database.lastModifiedDate;
-              };
               # preventing infrec
               guix = callPackage ./guix {
                 inherit (pkgs) guix;

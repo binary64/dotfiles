@@ -7,7 +7,7 @@
   fzf,
   starship,
   direnv,
-  nix-index,
+  #nix-index,
   eza,
   bat,
   fish,
