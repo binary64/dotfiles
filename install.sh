@@ -10,3 +10,7 @@ sudo cp hosts/desktop/configuration.nix /mnt/etc/nixos/
 sudo nixos-generate-config --root /mnt
 
 sudo nixos-install --no-root-passwd --root /mnt
+
+sudo umount -Rl /mnt
+sudo zpool export -a
+sudo reboot
