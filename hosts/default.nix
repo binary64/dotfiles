@@ -43,7 +43,7 @@
         inputs.activation-manager.nixosModules.home
 
         (
-          { config, ... }:
+          { config, lib, ... }:
           {
             users.users.user.packages = [
               (config.activation-manager.mkHome ../modules/activation-manager/main.nix)
@@ -52,7 +52,7 @@
             i18n.defaultLocale = "en_GB.UTF-8";
             console = {
               # font = "Lat2-Terminus16";
-              keyMap = "gb";
+              keyMap = lib.mkForce "gb";
               useXkbConfig = true; # use xkb.options in tty.
             };
           }
