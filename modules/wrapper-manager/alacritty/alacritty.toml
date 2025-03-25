@@ -1,0 +1,45 @@
+[font]
+normal = { family = "iosevka-normal", style = "Medium" }
+size = 13
+
+[window]
+padding = { x = 10, y = 10 }
+dynamic_padding = true
+
+[terminal]
+osc52 = "CopyPaste"
+
+[[keyboard.bindings]]
+key = "F"
+mods = "Control | Shift"
+action = "ReceiveChar"
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control | Shift"
+# passthru as <C-PageUp>
+chars = "\u001b[5;5~"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control | Shift"
+action = "Paste"
+
+[[keyboard.bindings]]
+key = "Tab"
+mods = "Control"
+chars = "\u001b[9;5u"
+
+[[keyboard.bindings]]
+key = "Tab"
+mods = "Control | Shift"
+chars = "\u001b[1;5Z"
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[cursor]
+style = { shape = "Beam", blinking = "On" }
+
+[env]
+TERM = "xterm-256color"

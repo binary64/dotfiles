@@ -7,7 +7,7 @@
   fzf,
   starship,
   direnv,
-  #nix-index,
+  nix-index,
   eza,
   bat,
   fish,
@@ -24,7 +24,7 @@
   dogdns,
   git,
   difftastic,
-  #elfutils-cli,
+  elfutils-cli,
   lurk,
   fq,
   jq,
@@ -32,7 +32,7 @@
   nixfmt-rfc-style,
   psmisc,
   nil,
-  #yazi,
+  yazi,
   httpie,
 }@args:
 symlinkJoin {

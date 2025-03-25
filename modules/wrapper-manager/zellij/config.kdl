@@ -1,0 +1,36 @@
+// Defaults
+// https://github.com/zellij-org/zellij/blob/main/zellij-utils/assets/config/default.kdl
+
+session_serialization false
+default_layout "compact"
+copy_on_select false
+mouse_mode false
+
+ui {
+    pane_frames {
+        rounded_corners true
+    }
+}
+
+theme "ansi"
+
+keybinds clear-defaults=true {
+    normal {
+        // bind "Ctrl p" { SwitchToMode "pane"; }
+    }
+    shared_except "locked" {
+        bind "Ctrl t" { NewTab; SwitchToMode "Normal"; }
+        // bind "Ctrl t" { NewTab; }
+        bind "Ctrl Tab" { GoToNextTab; }
+        bind "Ctrl Shift Tab" { GoToPreviousTab; }
+        bind "Ctrl Enter" { NewPane "Right"; SwitchToMode "Normal"; }
+        bind "Ctrl Shift Enter" { NewPane "Down"; SwitchToMode "Normal"; }
+        bind "Ctrl Left" { MoveFocus "Left"; }
+        bind "Ctrl Right" { MoveFocus "Right"; }
+        bind "Ctrl Down" { MoveFocus "Down"; }
+        bind "Ctrl Up" { MoveFocus "Up"; }
+        bind "Ctrl Shift Left" { Resize "Increase Left"; }
+        bind "Ctrl Shift Right" { Resize "Increase Right"; }
+    }
+}
+

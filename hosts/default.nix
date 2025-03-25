@@ -6,8 +6,9 @@
 }:
 {
   imports = [
-    ./desktop
-    ./laptop
+    ./hermes
+    ./fatalis
+    ./zorah
   ];
 
   _module.args.mkNixos =
@@ -43,7 +44,7 @@
         (
           { config, ... }:
           {
-            users.users.user.packages = [
+            users.users.ayats.packages = [
               (config.activation-manager.mkHome ../modules/activation-manager/main.nix)
             ];
           }

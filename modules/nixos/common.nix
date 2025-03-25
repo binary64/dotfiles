@@ -7,9 +7,7 @@
   ...
 }:
 {
-  imports = [
-    # ./swap.nix
-  ];
+  imports = [ ./swap.nix ];
 
   # broken
   services.envfs.enable = lib.mkForce false;
@@ -64,15 +62,15 @@
     # google-chrome
     # self'.packages.google-chrome
     # self'.packages.microsoft-edge
-    #self'.packages.brave
+    self'.packages.brave
     # ptyxis
     # self'.packages.zellij
     # self'.packages.alacritty
     # self'.packages.wezterm
-    # self'.packages.vscode
+    self'.packages.vscode
     # self'.packages.ghostty
-    #self'.packages.alacritty
-    #self'.packages.tmux
+    self'.packages.alacritty
+    self'.packages.tmux
     libcgroup
     wl-color-picker
   ];
@@ -141,7 +139,7 @@
 
   fonts.packages = [
     pkgs.roboto
-    #self'.packages.iosevka
+    self'.packages.iosevka
     # (pkgs.nerdfonts.override {fonts = ["NerdFontsSymbolsOnly"];})
     pkgs.nerd-fonts.symbols-only
     pkgs.corefonts
@@ -176,10 +174,10 @@
     '';
     hwRender = true;
     fonts = [
-      # {
-      #   name = "iosevka-normal Semibold";
-      #   package = self'.packages.iosevka;
-      # }
+      {
+        name = "iosevka-normal Semibold";
+        package = self'.packages.iosevka;
+      }
       {
         name = "Symbols Nerd Font";
         package = pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; };

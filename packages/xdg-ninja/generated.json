@@ -1,0 +1,22 @@
+{
+    "xdg-ninja": {
+        "cargoLocks": null,
+        "date": "2024-06-05",
+        "extract": null,
+        "name": "xdg-ninja",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "b3nj5m1n",
+            "repo": "xdg-ninja",
+            "rev": "d56175dfbbb25541228c2d62e6b466a2ee60639b",
+            "sha256": "sha256-BtVqbKTyM/52e1nkZNLcXaP4kDiFP/uDTLVugDDYJv8=",
+            "type": "github"
+        },
+        "version": "d56175dfbbb25541228c2d62e6b466a2ee60639b"
+    }
+}
