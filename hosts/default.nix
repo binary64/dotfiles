@@ -45,7 +45,7 @@
         (
           { config, ... }:
           {
-            users.users.ayats.packages = [
+            users.users.user.packages = [
               (config.activation-manager.mkHome ../modules/activation-manager/main.nix)
             ];
           }
