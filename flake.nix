@@ -6,7 +6,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: {
+  outputs = { self, nixpkgs, ... }@inputs: {
     imports = [ ./home.nix ];
 
     nixosConfigurations.desktop = nixpkgs.lib.nixosSystem {
