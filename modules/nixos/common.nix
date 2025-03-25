@@ -64,7 +64,7 @@
     # google-chrome
     # self'.packages.google-chrome
     # self'.packages.microsoft-edge
-    self'.packages.brave
+    #self'.packages.brave
     # ptyxis
     # self'.packages.zellij
     # self'.packages.alacritty
