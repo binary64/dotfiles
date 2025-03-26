@@ -3,7 +3,7 @@
 {
   disko.devices = {
     disk = {
-      nvme0n1 = {
+      root = {
         device = builtins.elemAt disks 0;
         type = "disk";
         content = {
@@ -55,7 +55,7 @@
           ashift = "12";
           autotrim = "on";
         };
-        
+
         # Dataset defaults:
         rootFsOptions = {
           compression = "zstd";
