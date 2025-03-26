@@ -8,6 +8,10 @@
       ./hardware-configuration.nix
     ];
 
+  environment.systemPackages = with pkgs; [
+    git
+  ];
+
   nix.settings.experimental-features = [
     "pipe-operators" "nix-command" "flakes"
   ] ;
