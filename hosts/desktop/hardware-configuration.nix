@@ -4,7 +4,7 @@
 {
   imports = [ ];
 
-  boot.initrd.availableKernelModules = [ "ata_piix" "mptspi" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [ "ata_piix" "mptspi" "sd_mod" "sr_mod" "nvme" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
@@ -14,8 +14,13 @@
       fsType = "zfs";
     };
 
+  fileSystems."/home" =
+    { device = "zroot/home";
+      fsType = "zfs";
+    };
+
   fileSystems."/nix" =
-    { device = "zroot/root/nix";
+    { device = "zroot/nix";
       fsType = "zfs";
     };
 

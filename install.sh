@@ -32,7 +32,7 @@ cp "./hosts/${MACHINE}/configuration.nix" /mnt/etc/nixos/
 
 # Install
 nixos-generate-config --root /mnt
-exit 1
+#exit 1
 nixos-install --no-root-passwd --root /mnt
 
 # Cleanup
