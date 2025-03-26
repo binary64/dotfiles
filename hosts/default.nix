@@ -47,6 +47,8 @@
           {
             users.users.user.packages = [
               (config.activation-manager.mkHome ../modules/activation-manager/main.nix)
+
+              htop
             ];
 
             i18n.defaultLocale = "en_GB.UTF-8";
