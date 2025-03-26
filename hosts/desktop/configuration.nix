@@ -8,10 +8,6 @@
       ./hardware-configuration.nix
     ];
 
-  environment.systemPackages = with pkgs; [
-    git
-  ];
-
   nix.settings.experimental-features = [
     "pipe-operators" "nix-command" "flakes"
   ] ;
@@ -103,7 +99,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     git
-    coreutils
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
