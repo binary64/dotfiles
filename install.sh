@@ -22,7 +22,7 @@ MACHINE="$1"
 # Format disk
 nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- \
   --mode destroy,format,mount \
-  --yes-please-wipe "hosts/$MACHINE/disko.nix"
+  --yes-wipe-all-disks "hosts/$MACHINE/disko.nix"
 sleep 3
 
 # Prepare filesystem
@@ -30,8 +30,8 @@ mkdir -p /mnt/etc/nixos
 cp -r . /mnt/etc/nixos/
 
 # Install
-nixos-generate-config --root /mnt
-nixos-install --no-root-passwd --root /mnt --flake ".#$MACHINE"
+#nixos-generate-config --root /mnt
+nixos-install --no-root-passwd --root /mnt --option networking.hostName "${MACHINE}" --file "hosts/${MACHINE}/configuration.nix"
 
 # Cleanup
 umount -Rl /mnt

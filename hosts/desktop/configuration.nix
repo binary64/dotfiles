@@ -1,6 +1,6 @@
 # This file is only a dummy non-flake NixOS configuration that we will bootstrap off of.
 
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports =
@@ -43,7 +43,7 @@
 
   # Define on which hard drive you want to install Grub.
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "desktop"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
