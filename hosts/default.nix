@@ -43,9 +43,9 @@
         inputs.activation-manager.nixosModules.home
 
         (
-          { config, lib, ... }:
+          { config, pkgs, lib, ... }:
           {
-            users.users.user.packages = [
+            users.users.user.packages = with pkgs; [
               (config.activation-manager.mkHome ../modules/activation-manager/main.nix)
 
               htop
