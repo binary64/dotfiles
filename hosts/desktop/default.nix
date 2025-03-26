@@ -21,7 +21,7 @@ in {
       # nixosModules.yubikey
 
       #-- Environment
-      {services.displayManager.autoLogin.user = "ayats";}
+      {services.displayManager.autoLogin.user = "user";}
       # nixosModules.plasma6
       nixosModules.gnome
       nixosModules.podman
