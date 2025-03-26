@@ -25,8 +25,9 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-partlabel/efi";
+    { device = "/dev/disk/by-partlabel/disk-root-esp";
       fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
     };
 
   swapDevices = [ ];
