@@ -27,7 +27,7 @@
               };
             };
             windows = {
-              size = "1G";
+              size = "199G";
               type = "0700";
               content = {
                 type = "filesystem";
