@@ -48,8 +48,20 @@
             users.users.user.packages = with pkgs; [
               (config.activation-manager.mkHome ../modules/activation-manager/main.nix)
 
-              htop
+              # htop # it's a program instead
             ];
+
+            environment.systemPackages = with pkgs; [
+            ];
+
+            programs = {
+              # tops
+              htop = { enable = true; };
+              iotop = { enable = true; };
+
+              # dev
+              git = { enable = true; };
+            }
 
             i18n.defaultLocale = "en_GB.UTF-8";
             console = {
