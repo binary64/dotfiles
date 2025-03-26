@@ -1,5 +1,5 @@
 #!/bin/bash
-set -xeuo pipefail
+set -euo pipefail
 
 # --- Dynamically load fzf via nix-shell ---
 MACHINE=$(nix-shell -p fzf --run '
@@ -16,7 +16,7 @@ read -p "WARNING: This will DESTROY ALL DATA on $MACHINE's disk. Continue? (y/N)
 
 # --- Run as root ---
 sudo bash -c '
-set -xeuo pipefail
+set -euo pipefail
 MACHINE="$1"
 
 # Format disk
@@ -31,7 +31,7 @@ cp -r . /mnt/etc/nixos/
 
 # Install
 #nixos-generate-config --root /mnt
-nixos-install --no-root-passwd --root /mnt --option networking.hostName "${MACHINE}" --file "hosts/${MACHINE}/configuration.nix"
+nixos-install --no-root-passwd --root /mnt --file "hosts/${MACHINE}/configuration.nix"
 
 # Cleanup
 umount -Rl /mnt
