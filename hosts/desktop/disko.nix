@@ -20,7 +20,7 @@
               };
             };
             linux-swap = {
-              size = "16G";  # Adjust based on your RAM
+              size = "16G";
               content = {
                 type = "swap";
                 resumeDevice = true;
@@ -28,7 +28,7 @@
             };
             windows = {
               size = "1G";
-              type = "0700";  # Microsoft Basic Data
+              type = "0700";
               content = {
                 type = "filesystem";
                 format = "ntfs";
@@ -49,13 +49,19 @@
     zpool = {
       zroot = {
         type = "zpool";
+
+        # Pool-level properties:
+        options = {
+          ashift = "12";
+          autotrim = "on";
+        };
+        
+        # Dataset defaults:
         rootFsOptions = {
           compression = "zstd";
           mountpoint = "none";
           atime = "off";
-          ashift = "12";
-          autotrim = "on";  # Enable TRIM for SSDs
-          "com.sun:auto-snapshot" = "false"; # No need for /nix snapshots
+          "com.sun:auto-snapshot" = "false";
         };
 
         datasets = {
@@ -75,19 +81,19 @@
               recordsize = "128K";
               xattr = "sa";
               acltype = "posixacl";
-              dedup = "off";         # Dedup hurts performance
+              dedup = "off";
             };
           };
           "nix" = {
             type = "zfs_fs";
             mountpoint = "/nix";
             options = {
-              recordsize = "16K";    # Matches typical NAR file chunks
-              dedup = "off";         # Dedup hurts performance
-              primarycache = "all";  # Cache both metadata and data
-              secondarycache = "all"; 
-              logbias = "throughput"; # Prioritize speed over sync writes
-              sync = "disabled";      # Safe for rebuilds (atomic by design)
+              recordsize = "16K";
+              dedup = "off";
+              primarycache = "all";
+              secondarycache = "all";
+              logbias = "throughput";
+              sync = "disabled";
             };
           };
         };
