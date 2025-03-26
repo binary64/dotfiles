@@ -27,7 +27,7 @@
               };
             };
             windows = {
-              size = "30%";
+              size = "1G";
               type = "0700";  # Microsoft Basic Data
               content = {
                 type = "filesystem";
