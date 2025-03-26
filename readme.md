@@ -11,3 +11,23 @@ These are my personal configuration files for my Linux and Windows machines. Fee
 5. It will reboot automatically to a non-graphical terminal. Login as root / 123
 6. `nixos-rebuild boot --flake /etc/nixos && reboot`
 7. It will reboot into a graphical user interface. Login as user / 123
+
+## Features
+
+* NixOS System with Flakes
+* ZFS
+* Supports multiple machines
+* Podman
+* Gnome
+* Alacritty
+
+## To do list
+
+* Hyprland
+* neovim
+* Script that runs on boot, does a nixos-rebuild only if noone has yet logged in.
+* CICD (GHA) that checks syntax, and then builds an iso
+* Desktop notification when a new build is available (with a green pipeline)
+* Nvidia stuff
+* Newer kernel
+* Use the newer nixos-install script, as the old one deprecates soon in 25.05

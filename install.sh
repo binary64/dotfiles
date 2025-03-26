@@ -1,5 +1,5 @@
 #!/bin/bash
-set -euo pipefail
+set -xeuo pipefail
 
 # --- Dynamically load fzf via nix-shell ---
 MACHINE=$(nix-shell -p fzf --run '
@@ -32,6 +32,7 @@ cp "./hosts/${MACHINE}/configuration.nix" /mnt/etc/nixos/
 
 # Install
 nixos-generate-config --root /mnt
+exit 1
 nixos-install --no-root-passwd --root /mnt
 
 # Cleanup
