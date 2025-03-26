@@ -1,47 +1,40 @@
 #!/bin/bash
 set -xeuo pipefail
 
-# --- Interactive Machine Selection with fzf ---
-MACHINE=$(
+# --- Dynamically load fzf via nix-shell ---
+MACHINE=$(nix-shell -p fzf --run '
   find hosts -name disko.nix | 
-  awk -F/ '{print $2}' | 
+  awk -F/ '\''{print $2}'\'' | 
   fzf --height=40% --reverse --prompt="Select machine: "
-)
+')
 
-if [[ -z "$MACHINE" ]]; then
-  echo "No machine selected. Exiting."
-  exit 1
-fi
+[[ -z "$MACHINE" ]] && { echo "No machine selected. Exiting."; exit 1; }
 
-# --- Verify disko config exists ---
-DISKO_CONFIG="hosts/$MACHINE/disko.nix"
-if [[ ! -f "$DISKO_CONFIG" ]]; then
-  echo "Error: $DISKO_CONFIG not found (but was listed?)"
-  exit 1
-fi
+# --- Confirmation Prompt ---
+read -p "WARNING: This will DESTROY ALL DATA on $MACHINE's disk. Continue? (y/N) " confirm
+[[ "${confirm,,}" != "y" ]] && { echo "Aborted."; exit 1; }
 
-# --- Disk Wipe Confirmation Prompt ---
-read -p "WARNING: This will DESTROY ALL DATA on the target disk. Continue? (y/N) " confirm
-if [[ "${confirm,,}" != "y" ]]; then
-  echo "Aborted. No changes were made."
-  exit 1
-fi
+# --- Run as root ---
+sudo bash -c '
+set -xeuo pipefail
+MACHINE="$1"
 
-# --- Proceed with Installation ---
-sudo -i
-
-echo "Running disko on config: ${DISKO_CONFIG}..."
-nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount --yes-wipe-all-disks "$DISKO_CONFIG"
-echo "Disko is all done! Waiting a few seconds because idk"
+# Format disk
+nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- \
+  --mode destroy,format,mount \
+  --yes-please-wipe "hosts/$MACHINE/disko.nix"
 sleep 3
 
+# Prepare filesystem
 mkdir -p /mnt/etc/nixos
 cp -r . /mnt/etc/nixos/
 
+# Install
 nixos-generate-config --root /mnt
+nixos-install --no-root-passwd --root /mnt --flake ".#$MACHINE"
 
-nixos-install --no-root-passwd --root /mnt
-
-sudo umount -Rl /mnt
-sudo zpool export -a
-sudo reboot
+# Cleanup
+umount -Rl /mnt
+zpool export -a
+reboot
+' _ "$MACHINE"  # Passing $MACHINE as argument
