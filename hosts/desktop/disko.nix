@@ -1,24 +1,40 @@
+{ lib, disks ? [ "/dev/nvme0n1" ], ... }:
+
 {
   disko.devices = {
     disk = {
-      root = {
+      nvme0n1 = {
+        device = builtins.elemAt disks 0;
         type = "disk";
-        device = "/dev/nvme0n1";
         content = {
           type = "gpt";
           partitions = {
-            ESP = {
-              size = "1G";
+            esp = {
+              size = "2G";
               type = "EF00";
               content = {
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
                 mountOptions = [ "nofail" ];
-                extraArgs = [ "-n" "BOOT" ];
               };
             };
-            zfs = {
+            linux-swap = {
+              size = "16G";  # Adjust based on your RAM
+              content = {
+                type = "swap";
+                resumeDevice = true;
+              };
+            };
+            windows = {
+              size = "30%";
+              type = "0700";  # Microsoft Basic Data
+              content = {
+                type = "filesystem";
+                format = "ntfs";
+              };
+            };
+            linux-root = {
               size = "100%";
               content = {
                 type = "zfs";
@@ -29,31 +45,51 @@
         };
       };
     };
+
     zpool = {
-      zroot = {
+      rpool = {
         type = "zpool";
         rootFsOptions = {
-          mountpoint = "none";
           compression = "zstd";
-          acltype = "posixacl";
-          xattr = "sa";
-          "com.sun:auto-snapshot" = "true";
+          mountpoint = "none";
+          atime = "off";
+          ashift = "12";
+          autotrim = "on";  # Enable TRIM for SSDs
+          "com.sun:auto-snapshot" = "false"; # No need for /nix snapshots
         };
-        options.ashift = "12";
+
         datasets = {
           "root" = {
             type = "zfs_fs";
-            options = {
-            };
             mountpoint = "/";
-
+            options = {
+              recordsize = "128K";
+              xattr = "sa";
+              acltype = "posixacl";
+            };
           };
-          "root/nix" = {
+          "home" = {
             type = "zfs_fs";
-            options.mountpoint = "/nix";
-            mountpoint = "/nix";
+            mountpoint = "/home";
+            options = {
+              recordsize = "128K";
+              xattr = "sa";
+              acltype = "posixacl";
+              dedup = "off";         # Dedup hurts performance
+            };
           };
-
+          "nix" = {
+            type = "zfs_fs";
+            mountpoint = "/nix";
+            options = {
+              recordsize = "16K";    # Matches typical NAR file chunks
+              dedup = "off";         # Dedup hurts performance
+              primarycache = "all";  # Cache both metadata and data
+              secondarycache = "all"; 
+              logbias = "throughput"; # Prioritize speed over sync writes
+              sync = "disabled";      # Safe for rebuilds (atomic by design)
+            };
+          };
         };
       };
     };

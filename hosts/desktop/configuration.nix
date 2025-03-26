@@ -15,7 +15,7 @@
   boot.supportedFilesystems = [ "zfs" ];
   networking.hostId = "d1a52b06";
   boot.kernelPackages = pkgs.linuxPackages_6_6;
-  boot.zfs.devNodes = "/dev/disk/by-partlabel";
+  # boot.zfs.devNodes = "/dev/disk/by-partlabel";
   
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.efi.canTouchEfiVariables = false;
@@ -31,7 +31,7 @@
   
   boot.loader.grub.extraPrepareConfig = ''
     mkdir -p /boot
-    mount /dev/disk/by-label/BOOT /boot
+    mount /dev/disk/by-partlabel/disk-root-esp /boot
   '';
 
   boot.loader.grub.extraInstallCommands = ''
