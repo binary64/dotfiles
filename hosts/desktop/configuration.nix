@@ -1,6 +1,6 @@
 # This file is only a dummy non-flake NixOS configuration that we will bootstrap off of.
 
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =

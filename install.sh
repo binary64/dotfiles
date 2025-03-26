@@ -28,10 +28,11 @@ sleep 3
 # Prepare filesystem
 mkdir -p /mnt/etc/nixos
 cp -r . /mnt/etc/nixos/
+cp "./hosts/${MACHINE}/configuration.nix" /mnt/etc/nixos/
 
 # Install
-#nixos-generate-config --root /mnt
-nixos-install --no-root-passwd --root /mnt --file "hosts/${MACHINE}/configuration.nix"
+nixos-generate-config --root /mnt
+nixos-install --no-root-passwd --root /mnt
 
 # Cleanup
 umount -Rl /mnt
