@@ -24,6 +24,7 @@ in {
       {services.displayManager.autoLogin.user = "ayats";}
       # nixosModules.plasma6
       nixosModules.gnome
+      nixosModules.podman
 
       # #-- Other
       # nixosModules.tailscale
