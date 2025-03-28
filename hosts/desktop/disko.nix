@@ -36,6 +36,7 @@
             };
             linux-root = {
               size = "100%";
+              type = "BF00";
               content = {
                 type = "zfs";
                 pool = "zroot";

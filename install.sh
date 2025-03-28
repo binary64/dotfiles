@@ -3,8 +3,8 @@ set -xeuo pipefail
 
 # --- Dynamically load fzf via nix-shell ---
 MACHINE=$(nix-shell -p fzf --run '
-  find hosts -name disko.nix | 
-  awk -F/ '\''{print $2}'\'' | 
+  find hosts -name disko.nix |
+  awk -F/ '\''{print $2}'\'' |
   fzf --height=40% --reverse --prompt="Select machine: "
 ')
 
@@ -32,7 +32,7 @@ cp "./hosts/${MACHINE}/configuration.nix" /mnt/etc/nixos/
 
 # Install
 nixos-generate-config --root /mnt
-#exit 1
+cp -f /mnt/etc/nixos/hardware-configuration.nix "/mnt/etc/nixos/hosts/${MACHINE}/"
 nixos-install --no-root-passwd --root /mnt
 
 # Cleanup
