@@ -33,6 +33,7 @@ cp "./hosts/${MACHINE}/configuration.nix" /mnt/etc/nixos/
 # Install
 nixos-generate-config --root /mnt
 cp -f /mnt/etc/nixos/hardware-configuration.nix "/mnt/etc/nixos/hosts/${MACHINE}/"
+sed -i 's/^\([[:space:]]*nixpkgs\.hostPlatform = lib\.mkDefault "x86_64-linux";\)/\#\1/' "/mnt/etc/nixos/hosts/${MACHINE}/hardware-configuration.nix"
 nixos-install --no-root-passwd --root /mnt
 
 # Cleanup
