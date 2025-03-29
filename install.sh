@@ -20,10 +20,10 @@ set -euo pipefail
 MACHINE="$1"
 
 # Format disk
-nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- \
+disko \
   --mode destroy,format,mount \
   --yes-wipe-all-disks "hosts/$MACHINE/disko.nix"
-sleep 3
+sleep 1
 
 # Prepare filesystem
 mkdir -p /mnt/etc/nixos
