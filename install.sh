@@ -21,8 +21,8 @@ MACHINE="$1"
 
 # Format disk
 disko \
-  --mode destroy,format,mount \
-  --yes-wipe-all-disks "hosts/$MACHINE/disko.nix"
+  --mode disko \
+  "hosts/$MACHINE/disko.nix"
 sleep 1
 
 # Prepare filesystem
