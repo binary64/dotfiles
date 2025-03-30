@@ -12,6 +12,7 @@
   ] ;
 
   boot.kernelModules = [ "r8125" ];
+  boot.blacklistedKernelModules = [ "r8169" ];
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
