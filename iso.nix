@@ -11,6 +11,8 @@
     "pipe-operators" "nix-command" "flakes"
   ] ;
 
+  boot.kernelModules = [ "r8125" ];
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_GB.UTF-8";
   console = {
