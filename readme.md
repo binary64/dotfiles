@@ -5,7 +5,7 @@ These are my personal configuration files for my Linux and Windows machines. Fee
 ## Quick start
 
 1. Boot custom NixOS installer iso
-  1. `nix run github:nix-community/nixos-generators -- -f iso -c /etc/nixos/iso.nix -I nixpkgs=channel:nixos-24.11'
+  1. `nix run github:nix-community/nixos-generators -- -f install-iso -c /etc/nixos/iso.nix -I nixpkgs=channel:nixos-24.11'
 2. `git clone https://github.com/binary64/dotfiles && cd dotfiles && bash install.sh`
 3. Choose the machine you're installing onto.
 4. Enter "y" when prompted to wipe your disk!
