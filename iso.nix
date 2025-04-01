@@ -11,6 +11,7 @@
     "pipe-operators" "nix-command" "flakes"
   ] ;
 
+  boot.extraModulePackages = with config.boot.kernelPackages; [ r8125 ];
   boot.kernelModules = [ "r8125" ];
   boot.blacklistedKernelModules = [ "r8169" ];
 
