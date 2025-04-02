@@ -1,5 +1,3 @@
-# This file is only a dummy non-flake NixOS configuration that we will bootstrap off of.
-
 { config, lib, pkgs, ... }:
 
 {
@@ -7,6 +5,10 @@
     [
       ./hardware-configuration.nix
     ];
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [ r8125 ];
+  boot.kernelModules = [ "r8125" ];
+  boot.blacklistedKernelModules = [ "r8169" ];
 
   nix.settings.experimental-features = [
     "pipe-operators" "nix-command" "flakes"
@@ -16,11 +18,11 @@
   networking.hostId = "d1a52b06";
   boot.kernelPackages = pkgs.linuxPackages_6_6;
   boot.zfs.devNodes = "/dev/disk/by-partlabel";
-  
+
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.efi.canTouchEfiVariables = false;
   boot.loader.generationsDir.copyKernels = true;
-  
+
   # GRUB configuration
   boot.loader.grub.enable = true;
   boot.loader.grub.copyKernels = true;
@@ -28,7 +30,7 @@
   boot.loader.grub.zfsSupport = true;
   boot.loader.grub.efiInstallAsRemovable = true;
   boot.loader.grub.device = "nodev"; # This means UEFI only.
-  
+
   boot.loader.grub.extraPrepareConfig = ''
     mkdir -p /boot
     mount /dev/disk/by-partlabel/disk-root-esp /boot
@@ -67,7 +69,7 @@
   # services.xserver.enable = true;
 
 
-  
+
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -145,4 +147,3 @@
   system.stateVersion = "24.11"; # Did you read the comment?
 
 }
-
